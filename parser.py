@@ -20,7 +20,53 @@ def parse_time(t):
 MISSPELLINGS = {
     "ASLHEY": "ASHLEY",
     "ASHELY": "ASHLEY",
-    "MARISA": "MARISHA"
+    "AHSLEY": "ASHLEY",
+    "AHSLY": "ASHLEY",
+    "ASHLY": "ASHLEY",
+    "ASHEY": "ASHLEY",
+    "MARISA": "MARISHA",
+    "MAIRSHA": "MARISHA",
+    "MAISHA": "MARISHA",
+    "MARIASHA": "MARISHA",
+    "MARIHSA": "MARISHA",
+    "MARIHSHA": "MARISHA",
+    "MARIRSHA": "MARISHA",
+    "MARISAH": "MARISHA",
+    "MARISAHA": "MARISHA",
+    "MARISH": "MARISHA",
+    "MARISHIA": "MARISHA",
+    "MARISSA": "MARISHA",
+    "MARSHA": "MARISHA",
+    "MARSHIA": "MARISHA",
+    "MARSIAH": "MARISHA",
+    "MARSIHA": "MARISHA",
+    "MATISHA": "MARISHA",
+    "MRAISHA": "MARISHA",
+    "LAIRA": "LAURA",
+    "LAUAR": "LAURA",
+    "LAUDA": "LAURA",
+    "MAT": "MATT",
+    "MATR": "MATT",
+    "SAN": "SAM",
+    "SASM": "SAM",
+    "SMA": "SAM",
+    "TAIESIN": "TALIESIN",
+    "TAILESIN": "TALIESIN",
+    "TALEISIN": "TALIESIN",
+    "TALEISN": "TALIESIN",
+    "TALESIN": "TALIESIN",
+    "TALIEISIN": "TALIESIN",
+    "TALIEISN": "TALIESIN",
+    "TALISAN": "TALIESIN",
+    "TALISEN": "TALIESIN",
+    "TALISIEN": "TALIESIN",
+    "TALISIN": "TALIESIN",
+    "TARVIS": "TRAVIS",
+    "TAVIS": "TRAVIS",
+    "TRAIS": "TRAVIS",
+    "TRAIVS": "TRAVIS",
+    "TRAVIA": "TRAVIS",
+    "TRAVS": "TRAVIS"
 }
 
 
@@ -200,6 +246,34 @@ HARDCODED = {
     "0rrj1v7lsxM": {
         "title": "Live From San Diego Comic-Con 2017",
         "campaign": "1", "episode": "0rrj1v7lsxM"
+    },
+    "DTOGH6M6INE": {
+        "title": "Thursday By Night One-Shot",
+        "campaign": "1", "episode": "DTOGH6M6INE"
+    },
+    "kLnvrocetq8": {
+        "title": "Grog's One-Shot",
+        "campaign": "1", "episode": "kLnvrocetq8"
+    },
+    "qA4-q4gk_yY": {
+        "title": "Hearthstone One-Shot",
+        "campaign": "1", "episode": "qA4-q4gk_yY"
+    },
+    "q3BGg0d8DvU": {
+        "title": "Epic Level Battle Royale One-Shot",
+        "campaign": "1", "episode": "q3BGg0d8DvU"
+    },
+    "9jbGshiuFs4": {
+        "title": "Marisha's Honey Heist",
+        "campaign": "1", "episode": "9jbGshiuFs4"
+    },
+    "rnq3VBQu_kI": {
+        "title": "Bar Room Blitz One-Shot",
+        "campaign": "1", "episode": "rnq3VBQu_kI"
+    },
+    "eXPu1wk-Ev4": {
+        "title": "Thursday By Night One-Shot Part 2",
+        "campaign": "1", "episode": "eXPu1wk-Ev4"
     }
 }
 
@@ -277,7 +351,7 @@ def main():
         text text, html text)""")
     con.execute("""CREATE VIRTUAL TABLE "line_fts" USING FTS4 (
         line_id, indexed_text)""")
-    for f in files[:1]:
+    for f in files:
         root = f.split(".")[0]
         with open(os.path.join("metadata/json", f), encoding="utf-8") as fp:
             j = json.load(fp)
@@ -371,6 +445,8 @@ def main():
                     values (?, ?)""", (speaker_id, line_id))
     con.execute("""insert into line_fts (line_id, indexed_text)
         select id, text from line""")
+    con.execute("create index idx_sid on speaker2line (speaker_id)")
+    con.execute("create index idx_lid on speaker2line (line_id)")
     con.commit()
     with open(os.path.join("html", "index.html"), encoding="utf-8", mode="w") as fp:
         fp.write(INDEX_HEADER)
