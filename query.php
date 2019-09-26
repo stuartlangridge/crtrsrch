@@ -10,10 +10,34 @@ function query($q) {
         inner join episode e on l.episode_id = e.id
         inner join speaker2line sl on l.id = sl.line_id
         inner join speaker s on sl.speaker_id = s.id
-        where f.indexed_text match :q group by l.id
+        where f.indexed_text match :q 
 SQL;
+    $speakers = [];
+    if (isset($_GET["LAURA"])) { $speakers[] = "LAURA"; }
+    if (isset($_GET["LIAM"])) { $speakers[] = "LIAM"; }
+    if (isset($_GET["MARISHA"])) { $speakers[] = "MARISHA"; }
+    if (isset($_GET["MATT"])) { $speakers[] = "MATT"; }
+    if (isset($_GET["SAM"])) { $speakers[] = "SAM"; }
+    if (isset($_GET["TALIESIN"])) { $speakers[] = "TALIESIN"; }
+    if (isset($_GET["TRAVIS"])) { $speakers[] = "TRAVIS"; }
+    if (count($speakers) > 0) {
+        $sql .= " and s.name in (";
+        $splaces = [];
+        foreach ($speakers as $idx => $name) {
+            if ($idx > 0) $sql .= ",";
+            $sql .= ":sp" . $idx;
+            $splaces[":sp" . $idx] = $name;
+        }
+        $sql .= ")";
+    }
+    $sql .= " group by l.id";
     $statement = $db->prepare($sql);
     $statement->bindValue(':q', $q);
+    if (count($speakers) > 0) {
+        foreach ($splaces as $ph => $name) {
+            $statement->bindValue($ph, $name);
+        }
+    }
     $results = $statement->execute();
     $ret = [];
     $count = 0;

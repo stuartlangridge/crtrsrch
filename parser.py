@@ -281,17 +281,13 @@ INDEX_HEADER = """<!doctype html>
 <html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Critical Role linkable transcripts</title>
-<style>
-main {
-  max-width: 38rem;
-  padding: 2rem;
-  margin: auto;
-}
-</style>
+<link rel="stylesheet" href="../style.css">
 </head>
 <body>
 <main>
     <h1>Critical Role linkable transcripts</h1>
+
+    <p><a href="../">Search these transcripts</a></p>
 
     <div id="list">
     <ul>
@@ -301,56 +297,103 @@ HEADER = """<!doctype html>
 <html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Critical Role Campaign {campaign} Episode {episode} "{title}" linkable transcript</title>
-<style>
-main {{
-  max-width: 38rem;
-  padding: 2rem;
-  margin: auto;
-}}
-a {{
-    color: #ccc;
-}}
-</style>
+
+<link rel="stylesheet" href="../style.css">
 </head>
 <body>
 <main>
-    <h1>Critical Role Campaign {campaign} Episode {episode} linkable transcript</h1>
+    <h1>Critical Role linkable transcripts</h1>
+    <h2>Campaign {campaign} Episode {episode}</h2>
     <h2>{title}</h2>
 
     <div id="lines">
 """
+
+UNPROCESSED_WARNING = """<p class="unprocessed-warning">It looks like this
+transcript is the
+<a href="https://critrole.com/live-closed-captions-on-twitch/">live
+closed captions</a> from Twitch, and hasn't yet been processed by the
+transcript team. This means that searching won’t work very well against it
+yet, and nor will searching by character. It will update in time; be patient,
+<a href="https://crtranscript.tumblr.com/post/186968699597/how-to-submit-corrections-maybe-put-the#notes">they
+work very hard</a>.</p>"""
+
 FOOTER = """
     </div><!-- lines -->
     <footer>
+        <p>
+            <a href="index.html">list of episodes</a>
+            |
+            <a href="../">search transcripts</a>
+        </p>
         <p>This is an <a href="https://kryogenix.org/">@sil</a> thing.</p>
-        <p>And a <a href="https://critrole.com/">Critical Role</a> thing, of course.</p>
-        <p>Mostly a Critical Role thing. And a CRTranscript thing. Stuart didn't really
-        have to do much.</p>
+        <p>And a <a href="https://critrole.com/">Critical Role</a>
+        thing, of course.</p>
+        <p>Mostly a Critical Role thing. And a CRTranscript thing.
+        Stuart didn't really have to do much.</p>
     </footer>
 </body>
 </html>"""
 
 LINE_DT = """<dt><a id="{lid}" href="#{lid}">#</a> <strong>{character}</strong></dt>\n"""
 LINE_DD = """<dd>{text_nl} <a href="{yt}">&rarr;</a></dd>\n"""
+INDEX_LINE = ('<li><a href="cr{campaign}-{episode}.html">Campaign {campaign}, '
+              'Episode {dispe}: {title}</a></li>\n')
+
+
+def makedb():
+    con = sqlite3.connect("cr.db")
+    con.execute("""create table if not exists episode (id integer primary key,
+        campaign text, episode text, title text, link text, ytid text)""")
+    con.execute("""create table if not exists speaker (id integer primary key,
+        name text)""")
+    con.execute("""create table if not exists line (id integer primary key,
+        episode_id integer,
+        time_h integer, time_m integer, time_s integer,
+        text text, html text,
+        CONSTRAINT fk_episode
+            FOREIGN KEY (episode_id)
+            REFERENCES episode (id)
+            ON DELETE CASCADE
+        )""")
+    con.execute("""create table if not exists speaker2line (speaker_id integer,
+        line_id integer,
+        CONSTRAINT fk_speaker
+            FOREIGN KEY (speaker_id)
+            REFERENCES speaker (id)
+            ON DELETE CASCADE
+        CONSTRAINT fk_line
+            FOREIGN KEY (line_id)
+            REFERENCES line (id)
+            ON DELETE CASCADE
+        )""")
+    con.execute("""CREATE VIRTUAL TABLE if not exists "line_fts" USING FTS4 (
+        line_id, indexed_text,
+        CONSTRAINT fk_line
+            FOREIGN KEY (line_id)
+            REFERENCES line (id)
+            ON DELETE CASCADE
+        )""")
+    con.execute("""create index if not exists idx_sid
+        on speaker2line (speaker_id)""")
+    con.execute("create index if not exists idx_lid on speaker2line (line_id)")
+    return con
 
 
 def main():
     files = os.listdir("metadata/json")
     master = []
-    if os.path.exists("cr.db"): os.unlink("cr.db")
-    con = sqlite3.connect("cr.db")
-    con.execute("""create table episode (id integer primary key,
-        campaign text, episode text, title text, link text)""")
-    con.execute("""create table speaker (id integer primary key,
-        name text)""")
-    con.execute("""create table speaker2line (speaker_id integer,
-        line_id integer)""")
-    con.execute("""create table line (id integer primary key,
-        episode_id integer,
-        time_h integer, time_m integer, time_s integer,
-        text text, html text)""")
-    con.execute("""CREATE VIRTUAL TABLE "line_fts" USING FTS4 (
-        line_id, indexed_text)""")
+    existing = []
+    if os.path.exists("cr.db"):
+        con = sqlite3.connect("cr.db")
+        crs = con.cursor()
+        crs.execute("select ytid from episode")
+        existing = [x[0] for x in crs.fetchall()]
+        con.close()
+
+    con = makedb()
+
+    processed = 0
     for f in files:
         root = f.split(".")[0]
         with open(os.path.join("metadata/json", f), encoding="utf-8") as fp:
@@ -371,9 +414,17 @@ def main():
             data["campaign"] = "2"
         elif root in HARDCODED:
             data = HARDCODED[root]
+            data["ytid"] = root
         else:
             print("Skip unknown episode", root, ft)
             continue
+
+        if root in existing:
+            #print(("Skipping already got "
+            #       "{campaign}/{episode} {title} ({ytid})").format(**data))
+            continue
+        processed += 1
+
         print("Processing {campaign}/{episode} {title}".format(**data))
         vtt = os.path.join("metadata/vtt", root + ".en.vtt")
         if not os.path.exists(vtt):
@@ -384,6 +435,20 @@ def main():
         htmlfn = os.path.join("html", htmlffn)
         with open(htmlfn, encoding="utf-8", mode="w") as fp:
             fp.write(HEADER.format(**data))
+
+            # quick pass to work out how many times we change character
+            lastchar = None
+            character_switches = 0
+            for line in data["transcript"]:
+                thischar = ", ".join(line["character"])
+                if thischar == lastchar:
+                    pass
+                else:
+                    lastchar = thischar
+                    character_switches += 1
+            if character_switches < 20:
+                fp.write(UNPROCESSED_WARNING)
+
             lastchar = None
             for line in data["transcript"]:
                 thischar = ", ".join(line["character"])
@@ -417,12 +482,13 @@ def main():
             "episode": data["episode"],
             "e": e,
             "dispe": dispe,
-            "yt": "https://youtube.com/watch?v={}".format(root)
+            "yt": "https://youtube.com/watch?v={}".format(root),
+            "ytid": root
         }
         master.append(mstr)
         crs = con.cursor()
-        crs.execute("""insert into episode (campaign, episode, title, link)
-            values (:campaign, :episode, :title, :yt)""", mstr)
+        crs.execute("""insert into episode (campaign, episode, title, link, ytid)
+            values (:campaign, :episode, :title, :yt, :ytid)""", mstr)
         inserted_episode_id = crs.lastrowid
         for line in data["transcript"]:
             crs.execute("""insert into line
@@ -443,16 +509,36 @@ def main():
                     speaker_id = result[0]
                 crs.execute("""insert into speaker2line (speaker_id, line_id)
                     values (?, ?)""", (speaker_id, line_id))
-    con.execute("""insert into line_fts (line_id, indexed_text)
-        select id, text from line""")
-    con.execute("create index idx_sid on speaker2line (speaker_id)")
-    con.execute("create index idx_lid on speaker2line (line_id)")
-    con.commit()
-    with open(os.path.join("html", "index.html"), encoding="utf-8", mode="w") as fp:
-        fp.write(INDEX_HEADER)
-        for line in sorted(master, key=lambda d: (d["campaign"], d["e"], d["title"])):
-            fp.write("""<li><a href="cr{campaign}-{episode}.html">Campaign {campaign}, Episode {dispe}: {title}</a></li>""".format(**line))
-        fp.write(FOOTER.format(**data))
+    if processed > 0:
+        print("Processed {} episodes".format(processed))
+        con.execute("""delete from line_fts""")
+        con.execute("""insert into line_fts (line_id, indexed_text)
+            select id, text from line""")
+        con.commit()
+        with open(os.path.join("html", "index.html"), encoding="utf-8", mode="w") as fp:
+            fp.write(INDEX_HEADER)
+            crs = con.cursor()
+            crs.execute("select campaign, episode, title from episode")
+            master = []
+            for row in crs.fetchall():
+                try:
+                    e = int(row[1])
+                    dispe = e
+                except:
+                    e = 99999
+                    dispe = "(special)"
+                mstr = {
+                    "title": row[2],
+                    "campaign": row[0],
+                    "episode": row[1],
+                    "dispe": dispe,
+                    "e": e
+                }
+                master.append(mstr)
+
+            for line in sorted(master, key=lambda d: (d["campaign"], d["e"], d["title"])):
+                fp.write(INDEX_LINE.format(**line))
+            fp.write(FOOTER)
 
 
 if __name__ == "__main__":

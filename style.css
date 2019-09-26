@@ -1,0 +1,85 @@
+body {font-family: Georgia, Serif; background-color: #fcfcfc; border-top:4px solid #333; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;}
+body, select, input, textarea {color: #111;}
+h1, h2, h3, .entry-title, .entry, #sidebar {text-align: center;}
+h1 {font-size: 3em; font-weight: 700;}
+h2 {font-family: Georgia, Serif; font-size: 2.8rem; line-height: 1.2em; font-weight: normal; font-style: italic; margin: 0 0 0.5em 0;}
+h3 {font-size: 1.2rem; font-weight: normal; font-style: italic; line-height: 1.2em;}
+ul, ol {font-size: 1.30rem;}
+p {font-size: 1.30rem; font-weight: normal; font-style: normal; line-height: 2.15rem;
+    margin-bottom: 2rem;}
+footer { border-top: 4px solid #333; margin-top: 2em; }
+footer p {font-size: 0.8rem; font-weight: normal; font-style: normal; line-height: 1;
+    margin-bottom: 0.1rem;}
+
+main {
+  max-width: 38rem;
+  padding: 2rem;
+  margin: auto;
+}
+a {
+  color: #66f;
+}
+a:visited {
+  color: #88d;
+}
+
+#lines a {
+    color: #ccc;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+td {
+    vertical-align: top;
+    padding: 0.1em;
+}
+tbody tr:nth-child(2n+1) {
+    border-top: 1px solid #727A8B;
+}
+tr:nth-child(2n) td {
+    padding-bottom: 1em;
+}
+th { text-align: left; }
+
+#list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#list ul li {
+  margin: 0;
+  padding: 0;
+}
+form p, form ul {
+    font-size: 0.7em;
+}
+form ul {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+form li:nth-child(1) {
+    border-left: 1px solid #ccc;
+}
+form li {
+    margin: 0;
+    padding: 0 1.1em 0 0.4em;
+    list-style: none;
+    display: inline;
+    border-right: 1px solid #ccc;
+}
+form input[type=submit] { display: block; }
+#results {
+    margin-top: 1em;
+}
+p.unprocessed-warning {
+    line-height: 1;
+    padding: 1em;
+    border: 1px solid #600;
+    background: #fdd;
+}
+#lines p.unprocessed-warning a {
+    color: #a00;
+}
