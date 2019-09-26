@@ -87,11 +87,15 @@ def namesplit(s):
         else:  # remove all lower-case (for "(whispering) LIAM:")
             removed = re.sub(r"[^A-Z]", "", s)
             if removed == s:
+                if s.startswith("-"):
+                    s = [s[1:]]
                 ret = [s]
             else:
                 ret = namesplit(removed)
     else:
         ret = [s.strip()]
+        if ret[0].startswith("-"):
+            ret[0] = ret[0][1:]
     for i in range(len(ret)):
         if ret[i] in MISSPELLINGS:
             ret[i] = MISSPELLINGS[ret[i]]
@@ -108,6 +112,7 @@ assert(namesplit("STUART and MATT and LAURA") == ["STUART", "MATT", "LAURA"])
 assert(namesplit("STUART, MATT AND LAURA") == ["STUART", "MATT", "LAURA"])
 assert(namesplit("STUART, MATT, AND LAURA") == ["STUART", "MATT", "LAURA"])
 assert(namesplit("STUART, ASLHEY, AND MARISA") == ["STUART", "ASHLEY", "MARISHA"])
+assert(namesplit("-LAURA") == ["LAURA"])
 
 
 def parse(file):
@@ -125,7 +130,7 @@ def parse(file):
         # print("before doing lines", plines)
         for pline in plines[2:]:
             # print("do line", pline)
-            m = re.match(r"^(?P<name>([A-Za-z]+,?\s)*[A-Z]+(,?[A-Za-z]+,?\s)*): (?P<text>.*)$", pline)
+            m = re.match(r"^(?P<name>([A-Za-z-]+,?\s)*[A-Z-]+(,?[A-Za-z-]+,?\s)*): (?P<text>.*)$", pline)
             if m:
                 parsedc = m.groupdict()["name"]
                 c = namesplit(parsedc)
