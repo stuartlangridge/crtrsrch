@@ -1,0 +1,4 @@
+Deny From All
+<FilesMatch "^(.*\.(php|html|css))|$">
+Allow From All
+</FilesMatch>

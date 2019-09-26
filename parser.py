@@ -84,6 +84,10 @@ def namesplit(s):
             ret = []
             for part in s.split(" and "):
                 ret += namesplit(part)
+        elif " & " in s:  # split on &
+            ret = []
+            for part in s.split(" & "):
+                ret += namesplit(part)
         else:  # remove all lower-case (for "(whispering) LIAM:")
             removed = re.sub(r"[^A-Z]", "", s)
             if removed == s:
