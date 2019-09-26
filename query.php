@@ -30,7 +30,7 @@ SQL;
         }
         $sql .= ")";
     }
-    $sql .= " group by l.id";
+    $sql .= " group by l.id order by e.sortkey desc";
     $statement = $db->prepare($sql);
     $statement->bindValue(':q', $q);
     if (count($speakers) > 0) {
@@ -42,7 +42,7 @@ SQL;
     $ret = [];
     $count = 0;
     while ($row = $results->fetchArray()) {
-        if ($count > 20) break;
+        if ($count > 100) break;
         $count += 1;
         $ret[] = array(
             "campaign" => $row[0],

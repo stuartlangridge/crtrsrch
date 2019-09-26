@@ -208,82 +208,69 @@ def parse(file):
 
 
 HARDCODED = {
-    "OJ81ydo91cw": {
-        "title": "Critical Role's Critmas!",
-        "campaign": "1", "episode": "OJ81ydo91cw"
-    },
-    "7J4fg79Utsk": {
-        "title": "Why I Love Critical Role (Fan Submissions)",
-        "campaign": "1", "episode": "7J4fg79Utsk"
-    },
-    "tasz1xUVLhg": {
-        "title": "Battle Royale One-Shot",
-        "campaign": "1", "episode": "tasz1xUVLhg"
-    },
-    "5UwEc10_DcI": {
-        "title": "Visit The Slayer’s Cake In Downtown Whitestone!",
-        "campaign": "1", "episode": "5UwEc10_DcI"
-    },
-    "LgHm3Ct0Zh0": {
-        "title": "The Return of Liam!",
-        "campaign": "1", "episode": "LgHm3Ct0Zh0"
-    },
-    "LHita2t54xY": {
-        "title": "Liam's Quest: Full Circle",
-        "campaign": "1", "episode": "LHita2t54xY"
-    },
-    "uw1crQ1d9AU": {
-        "title": "Cindergrove Revisited",
-        "campaign": "1", "episode": "46"
-    },
-    "4FI8qB-yh-w": {
-        "title": "Critical Role RPG Show Q&A and Battle Royale!",
-        "campaign": "1", "episode": "4FI8qB"
-    },
-    "98ZZ_Tw4sSI": {
-        "title": "Pants Optional Critmas",
-        "campaign": "1", "episode": "98ZZ_Tw4sSI"
-    },
-    "u8MRyyFDX3c": {
-        "title": "TO THE POOP! - The Goblins (Pathfinder)",
-        "campaign": "1", "episode": "u8MRyyFDX3c"
-    },
-    "mHfXAXM4O3E": {
-        "title": "Check Out CRITICAL ROLE's New Intro!",
-        "campaign": "1", "episode": "mHfXAXM4O3E"
-    },
-    "0rrj1v7lsxM": {
-        "title": "Live From San Diego Comic-Con 2017",
-        "campaign": "1", "episode": "0rrj1v7lsxM"
-    },
-    "DTOGH6M6INE": {
-        "title": "Thursday By Night One-Shot",
-        "campaign": "1", "episode": "DTOGH6M6INE"
-    },
-    "kLnvrocetq8": {
-        "title": "Grog's One-Shot",
-        "campaign": "1", "episode": "kLnvrocetq8"
-    },
-    "qA4-q4gk_yY": {
-        "title": "Hearthstone One-Shot",
-        "campaign": "1", "episode": "qA4-q4gk_yY"
-    },
-    "q3BGg0d8DvU": {
-        "title": "Epic Level Battle Royale One-Shot",
-        "campaign": "1", "episode": "q3BGg0d8DvU"
-    },
-    "9jbGshiuFs4": {
-        "title": "Marisha's Honey Heist",
-        "campaign": "1", "episode": "9jbGshiuFs4"
-    },
-    "rnq3VBQu_kI": {
-        "title": "Bar Room Blitz One-Shot",
-        "campaign": "1", "episode": "rnq3VBQu_kI"
-    },
-    "eXPu1wk-Ev4": {
-        "title": "Thursday By Night One-Shot Part 2",
-        "campaign": "1", "episode": "eXPu1wk-Ev4"
-    }
+ '0rrj1v7lsxM': {'campaign': '1',
+                 'episode': '102.01',
+                 'title': 'Live From San Diego Comic-Con 2017'},
+ '4FI8qB-yh-w': {'campaign': '1',
+                 'episode': '54.01',
+                 'title': 'Critical Role RPG Show Q&A and Battle Royale!'},
+ '5UwEc10_DcI': {'campaign': '1',
+                 'episode': '98.01',
+                 'title': 'Visit The Slayer’s Cake In Downtown Whitestone!'},
+ '7J4fg79Utsk': {'campaign': '1',
+                 'episode': '87.01',
+                 'title': 'Why I Love Critical Role (Fan Submissions)'},
+ '98ZZ_Tw4sSI': {'campaign': '1',
+                 'episode': '93.01',
+                 'title': 'Pants Optional Critmas'},
+ '9jbGshiuFs4': {'campaign': '1',
+                 'episode': '115.06',
+                 'title': "Marisha's Honey Heist"},
+ 'DTOGH6M6INE': {'campaign': '1',
+                 'episode': '115.01',
+                 'title': 'Thursday By Night One-Shot'},
+ 'LHita2t54xY': {'campaign': '1',
+                 'episode': '94.01',
+                 'title': "Liam's Quest: Full Circle"},
+ 'LfeAYN8f1AU': {'campaign': '1',
+                 'episode': '115.07',
+                 'title': "Sam's One-Shot"},
+ 'LgHm3Ct0Zh0': {'campaign': '1',
+                 'episode': '65.01',
+                 'title': 'The Return of Liam!'},
+ 'Mk21j54rX-M': {'campaign': '1',
+                 'episode': '112.01',
+                 'title': 'Shadow of War One-Shot Part 2'},
+ 'OJ81ydo91cw': {'campaign': '1',
+                 'episode': '74.01',
+                 'title': "Critical Role's Critmas!"},
+ 'c9lC5_qjkFE': {'campaign': '1',
+                 'episode': '111.01',
+                 'title': 'Shadow of War One-Shot Part 1'},
+ 'eXPu1wk-Ev4': {'campaign': '1',
+                 'episode': '115.02',
+                 'title': 'Thursday By Night One-Shot Part 2'},
+ 'kLnvrocetq8': {'campaign': '1',
+                 'episode': '115.04',
+                 'title': "Grog's One-Shot"},
+ 'q3BGg0d8DvU': {'campaign': '1',
+                 'episode': '115.08',
+                 'title': 'Epic Level Battle Royale One-Shot'},
+ 'qA4-q4gk_yY': {'campaign': '1',
+                 'episode': '115.05',
+                 'title': 'Hearthstone One-Shot'},
+ 'rnq3VBQu_kI': {'campaign': '1',
+                 'episode': '115.03',
+                 'title': 'Bar Room Blitz One-Shot'},
+ 'tasz1xUVLhg': {'campaign': '1',
+                 'episode': '98.02',
+                 'title': 'Battle Royale One-Shot'},
+ 'u8MRyyFDX3c': {'campaign': '1',
+                 'episode': '43.01',
+                 'title': 'TO THE POOP! - The Goblins (Pathfinder)'},
+ 'uw1crQ1d9AU': {'campaign': '1',
+                 'episode': '45.01',
+                 'title': 'Cindergrove Revisited'}
 }
 
 INDEX_HEADER = """<!doctype html>
@@ -339,7 +326,7 @@ FOOTER = """
         <p>And a <a href="https://critrole.com/">Critical Role</a>
         thing, of course.</p>
         <p>Mostly a Critical Role thing. And a CRTranscript thing.
-        Stuart didn't really have to do much.</p>
+        Stuart tied all their hard work together.</p>
     </footer>
 </body>
 </html>"""
@@ -353,7 +340,8 @@ INDEX_LINE = ('<li><a href="cr{campaign}-{episode}.html">Campaign {campaign}, '
 def makedb():
     con = sqlite3.connect("cr.db")
     con.execute("""create table if not exists episode (id integer primary key,
-        campaign text, episode text, title text, link text, ytid text)""")
+        campaign text, episode text, title text, link text,
+        ytid text, sortkey text)""")
     con.execute("""create table if not exists speaker (id integer primary key,
         name text)""")
     con.execute("""create table if not exists line (id integer primary key,
@@ -492,12 +480,16 @@ def main():
             "e": e,
             "dispe": dispe,
             "yt": "https://youtube.com/watch?v={}".format(root),
-            "ytid": root
+            "ytid": root,
+            "sortkey": "c{:03d}e{:07.2f}".format(
+                int(data["campaign"]),
+                float(data["episode"])
+            )
         }
         master.append(mstr)
         crs = con.cursor()
-        crs.execute("""insert into episode (campaign, episode, title, link, ytid)
-            values (:campaign, :episode, :title, :yt, :ytid)""", mstr)
+        crs.execute("""insert into episode (campaign, episode, title, link, ytid, sortkey)
+            values (:campaign, :episode, :title, :yt, :ytid, :sortkey)""", mstr)
         inserted_episode_id = crs.lastrowid
         for line in data["transcript"]:
             crs.execute("""insert into line

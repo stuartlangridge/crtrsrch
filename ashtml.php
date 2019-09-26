@@ -45,8 +45,7 @@ foreach ($results as $key => $res) {
     echo "m";
     echo $res["time_s"];
     echo 's';
-    echo '">[text]</a>';
-    echo "</td>\n<td>";
+    echo '">[text]</a> ';
     echo '<a href="';
     echo $res["episode_yt"];
     echo "&t=";
@@ -65,7 +64,7 @@ foreach ($results as $key => $res) {
 </tbody>
 </table>
 <?php
-if (count($results) >= 20) {
-    echo "<p><small>Search results are limited to the first 20. Refine your search if needed.</small></p>";
+if (count($results) >= 100) {
+    echo "<p><small>Search results are limited to the first 100. Refine your search if needed.</small></p>";
 }
 ?>

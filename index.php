@@ -66,7 +66,7 @@ if (isset($_GET["q"])) {
     <p>And a <a href="https://critrole.com/">Critical Role</a>
     thing, of course.</p>
     <p>Mostly a Critical Role thing. And a CRTranscript thing.
-    Stuart didn't really have to do much.</p>
+    Stuart tied all their hard work together.</p>
 </footer>
 </main>
 <script>
@@ -74,14 +74,17 @@ function inline() {
     var res = document.getElementById("results");
     var qbox = document.querySelector("input[type=search]");
     var debounce;
-    function query(q) {
-        var qs = new URLSearchParams(new FormData(document.querySelector("form"))).toString()
+    function query(q, pushState) {
+        var fd = new FormData(document.querySelector("form"));
+        var qs = new URLSearchParams(fd).toString();
+        var fdd = {};
+        Array.from(fd.entries()).forEach(function(kv) { fdd[kv[0]] = kv[1]; })
         fetch("ashtml.php?" + qs)
             .then(function(r) {
                 return r.text();
             }).then(function(html) {
                 res.innerHTML = html;
-                window.history.pushState({q: q}, "Search for " + q, "?" + qs);
+                if (pushState) window.history.pushState(fdd, "Search for " + q, "?" + qs);
             }).catch(function(e) {
                 console.log("er! error", e);
             })
@@ -90,13 +93,37 @@ function inline() {
         if (qbox.value.length > 3) {
             clearTimeout(debounce);
             res.innerHTML = "<p>searching...</p>";
-            debounce = setTimeout(query, 200, qbox.value);
+            debounce = setTimeout(query, 500, qbox.value, true);
         }
     };
     qbox.oninput = sub;
     Array.from(document.querySelectorAll('input[type=checkbox]')).forEach(function(i) {
         i.onchange = sub;
     });
+    window.onpopstate = function(e) {
+        setTimeout(function() {
+            if (!e.state) {
+                qbox.value = "";
+                res.innerHTML = "";
+                return;
+            }
+            if (e.state.q) {
+                Array.from(document.querySelectorAll("input[type=checkbox]")).forEach(e => {
+                    e.checked = false
+                });
+                for (var k in e.state) {
+                    if (k == "q") {
+                    } else {
+                        var el = document.querySelector("input[name=" + k + "]");
+                        if (el) el.checked = true;
+                    }
+                }
+                res.innerHTML = "<p>searching...</p>";
+                qbox.value = e.state.q;
+                query(e.state.q, false);
+            }
+        }, 0);
+    }
 }
 if (document.querySelector && window.fetch && window.URLSearchParams && Array.from) { inline(); }
 </script>

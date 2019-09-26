@@ -43,6 +43,12 @@ tr:nth-child(2n) td {
 }
 th { text-align: left; }
 
+tbody tr:nth-child(2n+1) td:last-child {
+    text-align: right;
+    white-space: nowrap;
+}
+
+
 #list ul {
   list-style: none;
   margin: 0;
