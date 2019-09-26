@@ -8,7 +8,7 @@
 </head>
 <body>
 <main>
-<h1>Critical Role linked transcripts</h1>
+<h1>Critical Role linkable transcripts</h1>
 <p>You can <a href="html/index.html">browse all the Critical Role transcripts</a> or search them below.</p>
 <form method="GET">
     <input type="search" name="q" value="<?php

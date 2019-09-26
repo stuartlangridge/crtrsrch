@@ -45,7 +45,7 @@ foreach ($results as $key => $res) {
     echo "m";
     echo $res["time_s"];
     echo 's';
-    echo '">[text]</a> ';
+    echo '">[<span>in </span>transcript]</a> ';
     echo '<a href="';
     echo $res["episode_yt"];
     echo "&t=";

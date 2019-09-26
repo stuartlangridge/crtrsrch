@@ -217,9 +217,6 @@ HARDCODED = {
  '5UwEc10_DcI': {'campaign': '1',
                  'episode': '98.01',
                  'title': 'Visit The Slayer’s Cake In Downtown Whitestone!'},
- '7J4fg79Utsk': {'campaign': '1',
-                 'episode': '87.01',
-                 'title': 'Why I Love Critical Role (Fan Submissions)'},
  '98ZZ_Tw4sSI': {'campaign': '1',
                  'episode': '93.01',
                  'title': 'Pants Optional Critmas'},
@@ -302,6 +299,13 @@ HEADER = """<!doctype html>
     <h2>Campaign {campaign} Episode {episode}</h2>
     <h2>{title}</h2>
 
+    <nav>
+        <ul>
+            <li><a href="index.html">list of episodes</a></li>
+            <li><a href="../">search transcripts</a></li>
+        </ul>
+    </nav>
+
     <div id="lines">
 """
 
@@ -317,11 +321,6 @@ work very hard</a>.</p>"""
 FOOTER = """
     </div><!-- lines -->
     <footer>
-        <p>
-            <a href="index.html">list of episodes</a>
-            |
-            <a href="../">search transcripts</a>
-        </p>
         <p>This is an <a href="https://kryogenix.org/">@sil</a> thing.</p>
         <p>And a <a href="https://critrole.com/">Critical Role</a>
         thing, of course.</p>

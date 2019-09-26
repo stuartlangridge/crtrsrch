@@ -1,8 +1,8 @@
 body {font-family: Georgia, Serif; background-color: #fcfcfc; border-top:4px solid #333; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;}
 body, select, input, textarea {color: #111;}
 h1, h2, h3, .entry-title, .entry, #sidebar {text-align: center;}
-h1 {font-size: 3em; font-weight: 700;}
-h2 {font-family: Georgia, Serif; font-size: 2.8rem; line-height: 1.2em; font-weight: normal; font-style: italic; margin: 0 0 0.5em 0;}
+h1 {font-size: 2em; font-weight: 700;}
+h2 {font-family: Georgia, Serif; font-size: 2rem; line-height: 1.2em; font-weight: normal; font-style: italic; margin: 0 0 0.5em 0;}
 h3 {font-size: 1.2rem; font-weight: normal; font-style: italic; line-height: 1.2em;}
 ul, ol {font-size: 1.30rem;}
 p {font-size: 1.30rem; font-weight: normal; font-style: normal; line-height: 2.15rem;
@@ -62,19 +62,20 @@ form p, form ul {
     font-size: 0.7em;
 }
 form ul {
-    display: block;
+    display: grid;
     margin: 1em 0;
     padding: 0;
-}
-form li:nth-child(1) {
-    border-left-width: 0;
+    grid-gap: 5px;
+    grid-template-columns: repeat(7, 1fr);
 }
 form li {
     margin: 0;
     padding: 0 1.1em 0 0.4em;
     list-style: none;
-    display: inline;
-    border-left: 1px solid #ccc;
+    white-space: nowrap;
+}
+form li input[type=checkbox] {
+    vertical-align: middle;
 }
 form input[type=submit] { display: block; }
 #results {
@@ -88,4 +89,38 @@ p.unprocessed-warning {
 }
 #lines p.unprocessed-warning a {
     color: #a00;
+}
+nav {
+    padding: 1em 0;
+    margin: 1em 0;
+    border: 1px solid #eee;
+    border-width: 3px 0;
+    position: sticky;
+    top: 0;
+    background: white;
+}
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+nav ul li {
+    flex: 1 1 auto;
+    padding: 0 1em;
+}
+nav ul li:nth-child(1) {
+    border-right: 3px solid #eee;
+    text-align: right;
+}
+
+@media (max-width: 800px) {
+    h1 { font-size: 1.3em; }
+    h2 { font-size: 1.3em; }
+    main { padding: 0.5rem; }
+    nav ul { font-size: 1em; }
+    tbody tr:nth-child(2n+1) td:last-child { white-space: normal; }
+    tbody tr:nth-child(2n+1) td:last-child span { display: none; }
+    form ul { grid-template-columns: repeat(4, 1fr); }
+    input[type="search"] { width: 100%; font-size: 1.2em; border-color: #777; }
 }
