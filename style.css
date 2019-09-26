@@ -57,18 +57,18 @@ form p, form ul {
 }
 form ul {
     display: block;
-    margin: 0;
+    margin: 1em 0;
     padding: 0;
 }
 form li:nth-child(1) {
-    border-left: 1px solid #ccc;
+    border-left-width: 0;
 }
 form li {
     margin: 0;
     padding: 0 1.1em 0 0.4em;
     list-style: none;
     display: inline;
-    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
 }
 form input[type=submit] { display: block; }
 #results {

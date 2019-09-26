@@ -18,16 +18,22 @@ $results = query($_GET["q"]);
 foreach ($results as $key => $res) {
     echo "<tr><td>";
     echo ($key + 1) . "/" . count($results);
-    echo "</td>\n<td>";
+    echo "</td>\n<td><strong>";
     echo htmlentities($res["speaker"]);
-    echo "</td>\n<td>";
-    echo "Campaign ";
+    echo "</strong></td>\n<td>";
+    echo "C";
     echo $res["campaign"];
-    echo " Episode ";
+    echo "E";
     echo $res["episode"];
-    echo ": ";
+    echo ": <em>";
     echo htmlentities($res["episode_title"]);
-    echo "</td>\n<td>";
+    echo "</em> <small>(";
+    echo $res["time_h"];
+    echo ":";
+    printf("%02d", $res["time_m"]);
+    echo ":";
+    printf("%02d", $res["time_s"]);
+    echo ")</small></td>\n<td>";
     echo '<a href="html/cr';
     echo $res["campaign"];
     echo "-";
@@ -39,7 +45,7 @@ foreach ($results as $key => $res) {
     echo "m";
     echo $res["time_s"];
     echo 's';
-    echo '">[context]</a>';
+    echo '">[text]</a>';
     echo "</td>\n<td>";
     echo '<a href="';
     echo $res["episode_yt"];
@@ -49,7 +55,7 @@ foreach ($results as $key => $res) {
     echo $res["time_m"];
     echo "m";
     echo $res["time_s"];
-    echo 's">[youtube]</a>';
+    echo 's">[video]</a>';
     echo "</td></tr>";
     echo "<tr>\n<td colspan=5>";
     echo $res["line"];
@@ -58,3 +64,8 @@ foreach ($results as $key => $res) {
 ?>
 </tbody>
 </table>
+<?php
+if (count($results) >= 20) {
+    echo "<p><small>Search results are limited to the first 20. Refine your search if needed.</small></p>";
+}
+?>

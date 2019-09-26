@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<main>
 <h1>Critical Role linked transcripts</h1>
 <p>You can <a href="html/index.html">browse all the Critical Role transcripts</a> or search them below.</p>
 <form method="GET">
@@ -67,26 +68,37 @@ if (isset($_GET["q"])) {
     <p>Mostly a Critical Role thing. And a CRTranscript thing.
     Stuart didn't really have to do much.</p>
 </footer>
-
+</main>
 <script>
-var res = document.getElementById("results");
-function query(q) {
-    fetch("ashtml.php?q=" + q)
-        .then(function(r) {
-            return r.text();
-        }).then(function(html) {
-            res.innerHTML = html;
-        }).catch(function(e) {
-            console.log("er! error", e);
-        })
-}
-var debounce;
-document.querySelector('[name="q"]').oninput = function(e) {
-    if (this.value.length > 3) {
-        clearTimeout(debounce);
-        debounce = setTimeout(query, 200, this.value);
+function inline() {
+    var res = document.getElementById("results");
+    var qbox = document.querySelector("input[type=search]");
+    var debounce;
+    function query(q) {
+        var qs = new URLSearchParams(new FormData(document.querySelector("form"))).toString()
+        fetch("ashtml.php?" + qs)
+            .then(function(r) {
+                return r.text();
+            }).then(function(html) {
+                res.innerHTML = html;
+                window.history.pushState({q: q}, "Search for " + q, "?" + qs);
+            }).catch(function(e) {
+                console.log("er! error", e);
+            })
     }
-};
+    function sub(e) {
+        if (qbox.value.length > 3) {
+            clearTimeout(debounce);
+            res.innerHTML = "<p>searching...</p>";
+            debounce = setTimeout(query, 200, qbox.value);
+        }
+    };
+    qbox.oninput = sub;
+    Array.from(document.querySelectorAll('input[type=checkbox]')).forEach(function(i) {
+        i.onchange = sub;
+    });
+}
+if (document.querySelector && window.fetch && window.URLSearchParams && Array.from) { inline(); }
 </script>
 </body>
 </html>
