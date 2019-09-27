@@ -114,6 +114,27 @@ nav ul li:nth-child(1) {
     text-align: right;
 }
 
+:target::before { /* push down below the header */
+    content: "";
+    display: block;
+    margin-top: -100px;
+    padding-top: 100px;
+}
+:target + strong { /* box around linked-to item */
+    position: relative;
+}
+:target + strong::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -0.5em;
+    left: -0.5em;
+    right: -0.5em;
+    bottom: -0.5em;
+    background: #ff880033;
+    border: 2px solid #ff880088;
+}
+
 @media (max-width: 800px) {
     h1 { font-size: 1.3em; }
     h2 { font-size: 1.3em; }
