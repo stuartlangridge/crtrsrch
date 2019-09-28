@@ -4,6 +4,7 @@ import subprocess
 import json
 import os
 import logging
+import re
 LOGLEVEL = os.environ.get('LOGLEVEL', 'WARNING').upper()
 logging.basicConfig(level=LOGLEVEL)
 
@@ -13,7 +14,11 @@ PLAYLISTS = [
 ]
 
 SKIP = [
-    "GYZqdvXb1SU"  # private video
+    "GYZqdvXb1SU",  # private video
+    "oSv-RSfkzGA",  # perfume ad?
+    "mHfXAXM4O3E",  # intro
+    "7J4fg79Utsk",  # fan submissions
+    "5UwEc10_DcI",  # slayer's cake ad
 ]
 
 
@@ -26,34 +31,52 @@ def main():
         lst = json.loads(out)
         for detail in lst.get("entries", {}):
             key = detail["url"]
-            if os.path.exists(os.path.join("metadata", "json",
-                                           "{}.info.json".format(key))):
-                logging.debug("Skip %s", key)
-            elif key in SKIP:
+            json_file = os.path.join("metadata", "json",
+                                     "{}.info.json".format(key))
+            vtt_file = os.path.join("metadata", "vtt",
+                                    "{}.en.vtt".format(key))
+            if key in SKIP:
                 logging.debug("Hardcoded skip %s", key)
-            else:
-                logging.info("Get %s", key)
-                try:
-                    out2 = subprocess.check_output([
-                        "youtube-dl", "--skip-download", "--write-info-json",
-                        "--sub-format", "vtt", "--write-sub", "--sub-lang", "en",
-                        "--restrict-filenames", "--id", "-i",
-                        "https://www.youtube.com/watch?v={}".format(key)])
-                    vtt = "{}.en.vtt".format(key)
-                    infojson = "{}.info.json".format(key)
-                    if (os.path.exists(vtt) and os.path.exists(infojson)):
-                        os.rename(vtt, os.path.join("metadata", "vtt", vtt))
-                        os.rename(infojson,
-                                  os.path.join("metadata", "json", infojson))
-                        fetched += 1
-                    else:
-                        print("   error: didn't download the files")
-                        print(out2)
-                except subprocess.CalledProcessError as e:
-                    if "This video is private" in e.output:
-                        print("   skipping private video")
-                    else:
-                        raise
+                continue
+            elif os.path.exists(vtt_file):
+                # check to see if we already have it but it's
+                # the unformatted live captions
+                is_ok = True
+                with open(vtt_file) as fp:
+                    tagged_lines = 0
+                    for line in fp.readlines():
+                        if re.match(r"^[A-Z]+:", line):
+                            tagged_lines += 1
+                    if tagged_lines < 25:
+                        logging.info("Re-fetch live captioned %s", key)
+                        is_ok = False
+
+                if is_ok:
+                    logging.debug("Skip %s", key)
+                    continue
+
+            logging.info("Get %s", key)
+            try:
+                out2 = subprocess.check_output([
+                    "youtube-dl", "--skip-download", "--write-info-json",
+                    "--sub-format", "vtt", "--write-sub", "--sub-lang", "en",
+                    "--restrict-filenames", "--id", "-i",
+                    "https://www.youtube.com/watch?v={}".format(key)])
+                vtt = "{}.en.vtt".format(key)
+                infojson = "{}.info.json".format(key)
+                if (os.path.exists(vtt) and os.path.exists(infojson)):
+                    os.rename(vtt, os.path.join("metadata", "vtt", vtt))
+                    os.rename(infojson,
+                              os.path.join("metadata", "json", infojson))
+                    fetched += 1
+                else:
+                    print("   error: didn't download the files")
+                    print(out2)
+            except subprocess.CalledProcessError as e:
+                if "This video is private" in e.output:
+                    print("   skipping private video")
+                else:
+                    raise
     print("Fetched {} videos".format(fetched))
 
 
