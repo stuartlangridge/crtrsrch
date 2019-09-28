@@ -1,20 +1,57 @@
-body {font-family: Georgia, Serif; background-color: #fcfcfc; border-top:4px solid #333; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;}
-body, select, input, textarea {color: #111;}
-h1, h2, h3, .entry-title, .entry, #sidebar {text-align: center;}
-h1 {font-size: 2em; font-weight: 700;}
-h2 {font-family: Georgia, Serif; font-size: 2rem; line-height: 1.2em; font-weight: normal; font-style: italic; margin: 0 0 0.5em 0;}
-h3 {font-size: 1.2rem; font-weight: normal; font-style: italic; line-height: 1.2em;}
-ul, ol {font-size: 1.30rem;}
-p {font-size: 1.30rem; font-weight: normal; font-style: normal; line-height: 2.15rem;
+body {
+    font-family: Georgia, Serif;
+    background-color: #fcfcfc;
+    background: linear-gradient(to bottom right, #ddd9d6, #f2f2f2, #dbdbdb, #eaeaea);
+    border-top:4px solid #333;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+body, select, input, textarea {
+    color: #111;
+}
+h1, h2, h3, .entry-title, .entry, #sidebar {
+    text-align: center;
+}
+h1 {
+    font-size: 2em;
+    font-weight: 700;
+}
+h2 {
+    font-family: Georgia, Serif;
+    font-size: 2rem;
+    line-height: 1.2em;
+    font-weight: normal;
+    font-style: italic;
+    margin: 0 0 0.5em 0;}
+h3 {
+    font-size: 1.2rem;
+    font-weight: normal;
+    font-style: italic;
+    line-height: 1.2em;}
+ul, ol {
+    font-size: 1.30rem;}
+p {
+    font-size: 1.30rem;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 2.15rem;
     margin-bottom: 2rem;}
-footer { border-top: 4px solid #333; margin-top: 2em; }
-footer p {font-size: 0.8rem; font-weight: normal; font-style: normal; line-height: 1;
-    margin-bottom: 0.1rem;}
+footer {
+    border-top: 4px solid #333;
+    margin-top: 2em;
+}
+footer p {
+    font-size: 0.8rem;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    margin-bottom: 0.1rem;
+}
 
 main {
-  max-width: 38rem;
-  padding: 2rem;
-  margin: auto;
+    max-width: 38rem;
+    padding: 2rem;
+    margin: auto;
 }
 a {
   color: #66f;
@@ -41,7 +78,8 @@ tbody tr:nth-child(2n+1) {
 tr:nth-child(2n) td {
     padding-bottom: 1em;
 }
-th { text-align: left; }
+th { text-align: left;
+ }
 
 tbody tr:nth-child(2n+1) td:last-child {
     text-align: right;
@@ -120,14 +158,14 @@ nav ul li:nth-child(1) {
     margin-top: -100px;
     padding-top: 100px;
 }
-:target + strong { /* box around linked-to item */
+:target { /* box around linked-to item */
     position: relative;
 }
-:target + strong::after {
+:target::after {
     content: "";
     position: absolute;
     z-index: -1;
-    top: -0.5em;
+    top: calc(100px - 0.5em);
     left: -0.5em;
     right: -0.5em;
     bottom: -0.5em;

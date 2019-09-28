@@ -330,8 +330,8 @@ FOOTER = """
 </body>
 </html>"""
 
-LINE_DT = """<dt><a id="{lid}" href="#{lid}">#</a> <strong>{character}</strong></dt>\n"""
-LINE_DD = """<dd>{text_nl} <a href="{yt}">&rarr;</a></dd>\n"""
+LINE_DT = """<dt><a href="#{lid}">#</a> <strong>{character}</strong></dt>\n"""
+LINE_DD = """<dd id="{lid}">{text_nl} <a href="{yt}">&rarr;</a></dd>\n"""
 INDEX_LINE = ('<li><a href="cr{campaign}-{episode}.html">Campaign {campaign}, '
               'Episode {dispe}: {title}</a></li>\n')
 
@@ -462,6 +462,8 @@ def main():
                     "text_nl": line["text"].replace("\n", "<br>\n"),
                     "yt": "https://youtube.com/watch?v={}&t={}h{}m{}s".format(
                         root, line["start"][0], line["start"][1], line["start"][2]),
+                    "lid": "l{}h{}m{}s".format(
+                            line["start"][0], line["start"][1], line["start"][2])
                 }
                 fp.write(LINE_DD.format(**d))
             fp.write(FOOTER.format(**data))
