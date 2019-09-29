@@ -38,8 +38,9 @@ SQL;
             $statement->bindValue($ph, $name);
         }
     }
-    $results = $statement->execute();
+    @$results = $statement->execute();
     $ret = [];
+    if ($results === FALSE) { return $ret; }
     $count = 0;
     while ($row = $results->fetchArray()) {
         if ($count > 100) break;
