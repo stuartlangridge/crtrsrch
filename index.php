@@ -17,10 +17,14 @@
     }
     ?>">
     <ul>
+        <li><label><input type="checkbox" name="ASHLEY"
+        <?php
+        if (isset($_GET["ASHLEY"])) { echo " checked"; }
+        ?>> Ashley</label></li>
         <li><label><input type="checkbox" name="LAURA"
-            <?php
-            if (isset($_GET["LAURA"])) { echo " checked"; }
-            ?>> Laura</label></li>
+        <?php
+        if (isset($_GET["LAURA"])) { echo " checked"; }
+        ?>> Laura</label></li>
         <li><label><input type="checkbox" name="LIAM"
         <?php
         if (isset($_GET["LIAM"])) { echo " checked"; }

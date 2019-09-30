@@ -93,6 +93,7 @@ def main():
                         print("Live captioned", key, "is still live captioned")
                     else:
                         print("Live captioned", key, "is now formatted OK")
+                        print("Remove it from database")
     print("Fetched {} video{}".format(fetched, "" if fetched == 1 else "s"))
 
 

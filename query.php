@@ -13,6 +13,7 @@ function query($q) {
         where f.indexed_text match :q 
 SQL;
     $speakers = [];
+    if (isset($_GET["ASHLEY"])) { $speakers[] = "ASHLEY"; }
     if (isset($_GET["LAURA"])) { $speakers[] = "LAURA"; }
     if (isset($_GET["LIAM"])) { $speakers[] = "LIAM"; }
     if (isset($_GET["MARISHA"])) { $speakers[] = "MARISHA"; }
