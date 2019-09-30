@@ -35,21 +35,26 @@ def main():
                                      "{}.info.json".format(key))
             vtt_file = os.path.join("metadata", "vtt",
                                     "{}.en.vtt".format(key))
+            is_live = False
             if key in SKIP:
                 logging.debug("Hardcoded skip %s", key)
                 continue
-            elif os.path.exists(vtt_file):
+            elif os.path.exists(vtt_file) and os.path.exists(json_file):
                 # check to see if we already have it but it's
                 # the unformatted live captions
                 is_ok = True
+                with open(json_file) as fp:
+                    jdetails = json.load(fp)
                 with open(vtt_file) as fp:
                     tagged_lines = 0
                     for line in fp.readlines():
                         if re.match(r"^[A-Z]+:", line):
                             tagged_lines += 1
                     if tagged_lines < 25:
-                        logging.info("Re-fetch live captioned %s", key)
+                        print("Re-fetch live captioned '{}' ({})".format(
+                              jdetails["fulltitle"], key))
                         is_ok = False
+                        is_live = True
 
                 if is_ok:
                     logging.debug("Skip %s", key)
@@ -77,7 +82,18 @@ def main():
                     print("   skipping private video")
                 else:
                     raise
-    print("Fetched {} videos".format(fetched))
+            if is_live:
+                # check again to see if what we got is better
+                with open(vtt_file) as fp:
+                    tagged_lines = 0
+                    for line in fp.readlines():
+                        if re.match(r"^[A-Z]+:", line):
+                            tagged_lines += 1
+                    if tagged_lines < 25:
+                        print("Live captioned", key, "is still live captioned")
+                    else:
+                        print("Live captioned", key, "is now formatted OK")
+    print("Fetched {} video{}".format(fetched, "" if fetched == 1 else "s"))
 
 
 if __name__ == "__main__":
