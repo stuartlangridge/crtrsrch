@@ -169,7 +169,7 @@ def parse(file):
                     character = process(accum, character)
                     accum = []
         if accum:
-            process(accum)
+            process(accum, character)
     # now post-process to join items together
     newtranscript = []
     for t in transcript:
