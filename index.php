@@ -78,15 +78,21 @@ function inline() {
     var res = document.getElementById("results");
     var qbox = document.querySelector("input[type=search]");
     var debounce;
+    var latest_qs;
     function query(q, pushState) {
         var fd = new FormData(document.querySelector("form"));
         var qs = new URLSearchParams(fd).toString();
+        latest_qs = qs;
         var fdd = {};
         Array.from(fd.entries()).forEach(function(kv) { fdd[kv[0]] = kv[1]; })
         fetch("ashtml.php?" + qs)
             .then(function(r) {
                 return r.text();
             }).then(function(html) {
+                if (qs != latest_qs) {
+                    console.log("not displaying result of query", qs,
+                        "because it has been superseded by", latest_qs);
+                }
                 res.innerHTML = html;
                 if (pushState) window.history.pushState(fdd, "Search for " + q, "?" + qs);
             }).catch(function(e) {
