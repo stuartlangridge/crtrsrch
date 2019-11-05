@@ -117,10 +117,17 @@ def main():
                     jdetails = json.load(fp)
                 with open(vtt_file) as fp:
                     tagged_lines = 0
+                    largest_untagged_lines = 0
+                    current_untagged_lines = 0
                     for line in fp.readlines():
                         if re.match(r"^[A-Z]+:", line):
                             tagged_lines += 1
-                    if tagged_lines < 25:
+                            current_untagged_lines = 0
+                        else:
+                            current_untagged_lines += 1
+                            if current_untagged_lines > largest_untagged_lines:
+                                largest_untagged_lines = current_untagged_lines
+                    if largest_untagged_lines > 1000 or tagged_lines < 25:
                         print("Re-fetch live captioned '{}' ({})".format(
                               jdetails["fulltitle"], key))
                         is_ok = False
@@ -162,10 +169,18 @@ def main():
                 # check again to see if what we got is better
                 with open(vtt_file) as fp:
                     tagged_lines = 0
+                    tagged_lines = 0
+                    largest_untagged_lines = 0
+                    current_untagged_lines = 0
                     for line in fp.readlines():
                         if re.match(r"^[A-Z]+:", line):
                             tagged_lines += 1
-                    if tagged_lines < 25:
+                            current_untagged_lines = 0
+                        else:
+                            current_untagged_lines += 1
+                            if current_untagged_lines > largest_untagged_lines:
+                                largest_untagged_lines = current_untagged_lines
+                    if largest_untagged_lines > 1000 or tagged_lines < 25:
                         print("Live captioned", key,
                               "is still live captioned rather",
                               "than correctly formatted")

@@ -432,17 +432,23 @@ def main():
         with open(htmlfn, encoding="utf-8", mode="w") as fp:
             fp.write(HEADER.format(**data))
 
-            # quick pass to work out how many times we change character
+            # quick pass to work out how many times we change character,
+            # and whether one character has a lot of lines
             lastchar = None
             character_switches = 0
+            longest_speech_lines = 0
+            current_speech_lines = 0
             for line in data["transcript"]:
                 thischar = ", ".join(line["character"])
                 if thischar == lastchar:
-                    pass
+                    current_speech_lines += 1
+                    if current_speech_lines > longest_speech_lines:
+                        longest_speech_lines = current_speech_lines
                 else:
                     lastchar = thischar
                     character_switches += 1
-            if character_switches < 20:
+                    current_speech_lines = 0
+            if character_switches < 20 or longest_speech_lines > 500:
                 fp.write(UNPROCESSED_WARNING)
 
             lastchar = None
