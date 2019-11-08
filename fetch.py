@@ -21,6 +21,14 @@ SKIP = [
     "5UwEc10_DcI",  # slayer's cake ad
 ]
 
+FAKE_VTT = """WEBVTT
+Kind: captions
+Language: en
+
+00:00:00.000 --> 00:00:03.533
+(no captions available for this episode yet)
+"""
+
 
 def fixAutoCaptionedVTT(vtt):
     """If you download automatic captions, YouTube puts a bunch of weird crap
@@ -31,13 +39,13 @@ Kind: captions
 Language: en
 
 00:00:00.030 --> 00:00:01.490 align:start position:0%
- 
+
 hello<00:00:00.450><c> everyone</c><00:00:00.780><c> and</c><00:00:00.930><c> we
 lcome</c><00:00:00.989><c> to</c><00:00:01.380><c> tonight's</c>
 
 00:00:01.490 --> 00:00:01.500 align:start position:0%
 hello everyone and welcome to tonight's
- 
+
 
 00:00:01.500 --> 00:00:03.770 align:start position:0%
 hello everyone and welcome to tonight's
@@ -156,10 +164,18 @@ def main():
                     fetched += 1
                 else:
                     output = out2.decode("utf-8")
-                    print("   failed to download, with error:")
+                    print("Trying to fetch {} failed to download, with error:".format(key))
                     print(output)
                     if os.path.exists(infojson):
-                        os.unlink(infojson)
+                        # write a fake vtt file
+                        print("The VTT file was not fetched, so we write a temporary fake one")
+                        os.rename(infojson,
+                                  os.path.join("metadata", "json", infojson))
+                        fp = open(os.path.join("metadata", "vtt", vtt),
+                                  mode="w", encoding="utf-8")
+                        fp.write(FAKE_VTT)
+                        fetched += 1
+
             except subprocess.CalledProcessError as e:
                 if "This video is private" in e.output:
                     print("   skipping private video")

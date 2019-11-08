@@ -299,12 +299,16 @@ HEADER = """<!doctype html>
     <h2>Campaign {campaign} Episode {episode}</h2>
     <h2>{title}</h2>
 
+    [[prevnext]]
+
     <nav>
         <ul>
             <li><a href="index.html">list of episodes</a></li>
             <li><a href="../">search transcripts</a></li>
         </ul>
     </nav>
+
+    
 
     <div id="lines">
 """
@@ -320,6 +324,9 @@ work very hard</a>.</p>"""
 
 FOOTER = """
     </div><!-- lines -->
+
+    [[prevnext]]
+
     <footer>
         <p>This is an <a href="https://kryogenix.org/">@sil</a> thing.</p>
         <p>And a <a href="https://critrole.com/">Critical Role</a>
@@ -546,7 +553,45 @@ def main():
 
             for line in sorted(master, key=lambda d: (d["campaign"], d["e"], d["title"])):
                 fp.write(INDEX_LINE.format(**line))
-            fp.write(FOOTER)
+            fp.write(FOOTER.replace("[[prevnext]]", ""))
+
+    # update prevnexts
+    crs = con.cursor()
+    crs.execute("select campaign, episode, title from episode order by sortkey asc")
+    episodes = crs.fetchall()
+    for idx in range(len(episodes)):
+        campaign, episode, title = episodes[idx]
+        prevc, preve, prevt = None, None, None
+        if idx > 0:
+            prevc, preve, prevt = episodes[idx - 1]
+        nextc, nexte, nextt = None, None, None
+        if idx < len(episodes) - 1:
+            nextc, nexte, nextt = episodes[idx + 1]
+        htmlfile = "html/cr{campaign}-{episode}.html".format(
+            campaign=campaign, episode=episode)
+        if nextc:
+            nexth = ('<a class="next" href="cr{campaign}-{episode}.html">'
+                     '{campaign}x{episode} {title} &rarr;</a>').format(
+                campaign=nextc, episode=nexte, title=html.escape(nextt))
+        else:
+            nexth = ""
+        if prevc:
+            prevh = ('<a class="prev" href="cr{campaign}-{episode}.html">'
+                     '&larr; {campaign}x{episode} {title}</a>').format(
+                campaign=prevc, episode=preve, title=html.escape(prevt))
+        else:
+            prevh = ""
+        prevnext = '<div class="prevnext">{}{}</div>'.format(prevh, nexth)
+        fp = open(htmlfile, encoding="utf-8")
+        data = fp.read()
+        fp.close()
+        # add prevnext to newly written things
+        data = data.replace("[[prevnext]]", prevnext)
+        # and fix up previous things
+        data = re.sub(r'<div class="prevnext">.*?</div>', prevnext, data)
+        fp = open(htmlfile, encoding="utf-8", mode="w")
+        fp.write(data)
+        fp.close()
 
 
 if __name__ == "__main__":

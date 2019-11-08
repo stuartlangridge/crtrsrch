@@ -184,3 +184,20 @@ nav ul li:nth-child(1) {
     form ul { grid-template-columns: repeat(4, 1fr); }
     input[type="search"] { width: 100%; font-size: 1.2em; border-color: #777; }
 }
+
+.prevnext {
+    display: flex;
+}
+.prevnext a {
+    flex: 1 1 auto;
+}
+.prevnext .prev {
+    padding-right: 1em;
+}
+.prevnext .next {
+    padding-left: 1em;
+    text-align: right;
+}
+#lines + .prevnext {
+    margin-top: 2em;
+}
