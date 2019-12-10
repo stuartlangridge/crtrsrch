@@ -201,3 +201,7 @@ nav ul li:nth-child(1) {
 #lines + .prevnext {
     margin-top: 2em;
 }
+span.unprocessed {
+    font-size: 60%;
+    background: yellow;
+}

@@ -214,9 +214,6 @@ HARDCODED = {
  '4FI8qB-yh-w': {'campaign': '1',
                  'episode': '54.01',
                  'title': 'Critical Role RPG Show Q&A and Battle Royale!'},
- '5UwEc10_DcI': {'campaign': '1',
-                 'episode': '98.01',
-                 'title': 'Visit The Slayer’s Cake In Downtown Whitestone!'},
  '98ZZ_Tw4sSI': {'campaign': '1',
                  'episode': '93.01',
                  'title': 'Pants Optional Critmas'},
@@ -270,6 +267,14 @@ HARDCODED = {
                  'title': 'Cindergrove Revisited'}
 }
 
+IGNORED_NON_EPISODES = [
+    "7J4fg79Utsk",  # Why I Love Critical Role (Fan Submissions) | Talks Machina
+    "oSv-RSfkzGA",  # CR: The Perfume from Critical Role
+    "mHfXAXM4O3E",  # Check Out CRITICAL ROLE's New Intro!
+    "_NmZ2b_Q3So",  # Talks Machina: Discussing C2E84 - Titles and Tattoos
+
+]
+
 INDEX_HEADER = """<!doctype html>
 <html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -320,7 +325,8 @@ closed captions</a> from Twitch, and hasn't yet been processed by the
 transcript team. This means that searching won’t work very well against it
 yet, and nor will searching by character. It will update in time; be patient,
 <a href="https://crtranscript.tumblr.com/post/186968699597/how-to-submit-corrections-maybe-put-the#notes">they
-work very hard</a>.</p>"""
+work very hard</a>. You can still view <a href="https://youtube.com/watch?v={ytid}">the
+episode itself on YouTube</a>.</p>"""
 
 FOOTER = """
     </div><!-- lines -->
@@ -340,14 +346,14 @@ FOOTER = """
 LINE_DT = """<dt><a href="#{lid}">#</a> <strong>{character}</strong></dt>\n"""
 LINE_DD = """<dd id="{lid}">{text_nl} <a href="{yt}">&rarr;</a></dd>\n"""
 INDEX_LINE = ('<li><a href="cr{campaign}-{episode}.html">Campaign {campaign}, '
-              'Episode {dispe}: {title}</a></li>\n')
+              'Episode {dispe}: {title}</a> {unprocessed}</li>\n')
 
 
 def makedb():
     con = sqlite3.connect("cr.db")
     con.execute("""create table if not exists episode (id integer primary key,
         campaign text, episode text, title text, link text,
-        ytid text, sortkey text)""")
+        ytid text, sortkey text, processed boolean)""")
     con.execute("""create table if not exists speaker (id integer primary key,
         name text)""")
     con.execute("""create table if not exists line (id integer primary key,
@@ -397,6 +403,7 @@ def main():
     con = makedb()
 
     processed = 0
+    unprocessed_episodes = []
     for f in files:
         root = f.split(".")[0]
         with open(os.path.join("metadata/json", f), encoding="utf-8") as fp:
@@ -418,6 +425,8 @@ def main():
         elif root in HARDCODED:
             data = HARDCODED[root]
             data["ytid"] = root
+        elif root in IGNORED_NON_EPISODES:
+            continue
         else:
             print("Skip unknown episode", root, ft)
             continue
@@ -456,7 +465,8 @@ def main():
                     character_switches += 1
                     current_speech_lines = 0
             if character_switches < 20 or longest_speech_lines > 500:
-                fp.write(UNPROCESSED_WARNING)
+                fp.write(UNPROCESSED_WARNING.format(**data))
+                unprocessed_episodes.append((data["campaign"], data["episode"]))
 
             lastchar = None
             for line in data["transcript"]:
@@ -498,12 +508,13 @@ def main():
             "sortkey": "c{:03d}e{:07.2f}".format(
                 int(data["campaign"]),
                 float(data["episode"])
-            )
+            ),
+            "processed": (data["campaign"], data["episode"]) not in unprocessed_episodes
         }
         master.append(mstr)
         crs = con.cursor()
-        crs.execute("""insert into episode (campaign, episode, title, link, ytid, sortkey)
-            values (:campaign, :episode, :title, :yt, :ytid, :sortkey)""", mstr)
+        crs.execute("""insert into episode (campaign, episode, title, link, ytid, sortkey, processed)
+            values (:campaign, :episode, :title, :yt, :ytid, :sortkey, :processed)""", mstr)
         inserted_episode_id = crs.lastrowid
         for line in data["transcript"]:
             crs.execute("""insert into line
@@ -533,7 +544,7 @@ def main():
         with open(os.path.join("html", "index.html"), encoding="utf-8", mode="w") as fp:
             fp.write(INDEX_HEADER)
             crs = con.cursor()
-            crs.execute("select campaign, episode, title from episode")
+            crs.execute("select campaign, episode, title, processed from episode")
             master = []
             for row in crs.fetchall():
                 try:
@@ -547,7 +558,8 @@ def main():
                     "campaign": row[0],
                     "episode": row[1],
                     "dispe": dispe,
-                    "e": e
+                    "e": e,
+                    "unprocessed": "" if row[3] else '<span class="unprocessed">not yet ready</span>'
                 }
                 master.append(mstr)
 
