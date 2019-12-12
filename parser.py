@@ -278,6 +278,15 @@ IGNORED_NON_EPISODES = [
 INDEX_HEADER = """<!doctype html>
 <html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-331575-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-331575-1');
+</script>
 <title>Critical Role linkable transcripts</title>
 <link rel="stylesheet" href="../style.css">
 </head>
@@ -294,6 +303,16 @@ INDEX_HEADER = """<!doctype html>
 HEADER = """<!doctype html>
 <html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-331575-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-331575-1');
+</script>
+
 <title>Critical Role Campaign {campaign} Episode {episode} "{title}" linkable transcript</title>
 
 <link rel="stylesheet" href="../style.css">

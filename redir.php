@@ -10,6 +10,11 @@ function begone() {
 }
 
 $q = str_replace("-", " ", $_GET["q"]);
+if (strpos($q, "%") === FALSE) {
+    // not escaped
+} else {
+    $q = urldecode($q);
+}
 $parts = explode(" ", $q);
 if (count($parts) < 3) {
     begone();
