@@ -19,6 +19,7 @@
 <main>
 <h1>Critical Role linkable transcripts</h1>
 <p>You can <a href="html/index.html">browse all the Critical Role transcripts</a> or search them below.</p>
+<p>For example, look at every time <a href="?q=&quot;burt+reynolds&quot;&amp;SAM=on">Sam mentions Burt Reynolds</a>, or <a href="?q=&quot;diplomatic+immunity&quot;&amp;LIAM=on">Liam quotes Joss Ackland</a>, or find the occasion when <a href="?q=pastries+are+made+with+cinnamon">Jester told a creature of darkness about pastries having cinnamon</a>!</p>
 <form method="GET">
     <input type="search" name="q" value="<?php
     if (isset($_GET["q"])) {
@@ -75,11 +76,11 @@ if (isset($_GET["q"])) {
         |
         <a href="./">search transcripts</a>
     </p>
-    <p>This is an <a href="https://kryogenix.org/">@sil</a> thing.</p>
+    <p>This is an <a href="https://kryogenix.org/">@sil</a> thing. Ping him <a href="https://twitter.com/sil">on Twitter</a> about problems.</p>
     <p>And a <a href="https://critrole.com/">Critical Role</a>
     thing, of course.</p>
     <p>Mostly a Critical Role thing. And a CRTranscript thing.
-    Stuart tied all their hard work together.</p>
+    Stuart just tied all their hard work together.</p>
 </footer>
 </main>
 <script>
