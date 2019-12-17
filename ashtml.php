@@ -1,6 +1,14 @@
 <?php
 include("query.php");
-$results = query($_GET["q"]);
+$qu = $_GET["q"];
+$encqu = urlencode($qu);
+$cachepath = __dir__ . "/cache/" . $encqu . ".cache";
+if (file_exists($cachepath)) {
+    echo file_get_contents($cachepath);
+    echo "<span data-cached></span>";
+} else {
+$results = query($qu);
+ob_start();
 ?>
 <table>
 <thead>
@@ -66,5 +74,10 @@ foreach ($results as $key => $res) {
 <?php
 if (count($results) >= 100) {
     echo "<p><small>Search results are limited to the first 100. Refine your search if needed.</small></p>";
+}
+
+$output = ob_get_clean();
+file_put_contents($cachepath, $output);
+echo $output;
 }
 ?>

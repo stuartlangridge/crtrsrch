@@ -19,7 +19,7 @@
 <main>
 <h1>Critical Role linkable transcripts</h1>
 <p>You can <a href="html/index.html">browse all the Critical Role transcripts</a> or search them below.</p>
-<p>For example, look at every time <a href="?q=&quot;burt+reynolds&quot;&amp;SAM=on">Sam mentions Burt Reynolds</a>, or <a href="?q=&quot;diplomatic+immunity&quot;&amp;LIAM=on">Liam quotes Joss Ackland</a>, or find the occasion when <a href="?q=pastries+are+made+with+cinnamon">Jester told a creature of darkness about pastries having cinnamon</a>!</p>
+<p>For example, find the occasion when <a href="?q=pastries+are+made+with+cinnamon">Jester told a creature of darkness about cinnamon pastries</a>, or look at every time <a href="?q=&quot;burt+reynolds&quot;&amp;SAM=on">Sam mentioned Burt Reynolds</a> or <a href="?q=&quot;diplomatic+immunity&quot;&amp;LIAM=on">Liam quotes Joss Ackland</a>!</p>
 <form method="GET">
     <input type="search" name="q" value="<?php
     if (isset($_GET["q"])) {
