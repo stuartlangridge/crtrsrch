@@ -103,7 +103,6 @@ form ul {
     display: grid;
     margin: 1em 0;
     padding: 0;
-    grid-gap: 5px;
     grid-template-columns: repeat(8, 1fr);
 }
 form li {
