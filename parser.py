@@ -5,6 +5,7 @@ import json
 import html
 import bleach
 import sqlite3
+import sys
 
 
 def parse_time(t):
@@ -429,7 +430,7 @@ def main():
             j = json.load(fp)
         ft = j["fulltitle"]
         c1 = re.match(r"^(?P<title>.*) [-|] Critical Role RPG( Show)?:?( LIVE)? Episode ((?P<ep>[0-9]+)(, pt. [0-9]+)?)$", ft)
-        c2 = re.match(r"^(?P<title>.*) \| Critical Role \| Campaign 2, Episode (?P<ep>[0-9]+)(.*)?$", ft)
+        c2 = re.match(r"^(?P<title>.*) \| Critical Role *\| Campaign 2,? (Episode|Epsiode) (?P<ep>[0-9]+)(.*)?$", ft)
         data = {
             "episode": None, "campaign": None, "ytid": root,
             "title": None, "url": j["webpage_url"]}
@@ -554,7 +555,7 @@ def main():
                     speaker_id = result[0]
                 crs.execute("""insert into speaker2line (speaker_id, line_id)
                     values (?, ?)""", (speaker_id, line_id))
-    if processed > 0:
+    if processed > 0 or "--rebuild-index" in sys.argv:
         print("Processed {} episodes".format(processed))
         con.execute("""delete from line_fts""")
         con.execute("""insert into line_fts (line_id, indexed_text)
@@ -565,6 +566,7 @@ def main():
             crs = con.cursor()
             crs.execute("select campaign, episode, title, processed from episode")
             master = []
+            written_to_index = set()
             for row in crs.fetchall():
                 try:
                     e = int(row[1])
@@ -583,7 +585,10 @@ def main():
                 master.append(mstr)
 
             for line in sorted(master, key=lambda d: (d["campaign"], d["e"], d["title"])):
-                fp.write(INDEX_LINE.format(**line))
+                ekey = (line["campaign"], line["e"])
+                if ekey not in written_to_index:
+                    fp.write(INDEX_LINE.format(**line))
+                    written_to_index.add(ekey)
             fp.write(FOOTER.replace("[[prevnext]]", ""))
 
     # update prevnexts
