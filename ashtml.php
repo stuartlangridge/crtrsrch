@@ -1,7 +1,7 @@
 <?php
 include("query.php");
 $qu = $_GET["q"];
-$encqu = urlencode($qu);
+$encqu = urlencode($_SERVER['QUERY_STRING']);
 $cachepath = __dir__ . "/cache/" . $encqu . ".cache";
 if (file_exists($cachepath)) {
     echo file_get_contents($cachepath);
