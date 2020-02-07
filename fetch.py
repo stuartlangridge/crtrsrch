@@ -5,6 +5,7 @@ import json
 import os
 import logging
 import re
+import sys
 LOGLEVEL = os.environ.get('LOGLEVEL', 'WARNING').upper()
 logging.basicConfig(level=LOGLEVEL)
 
@@ -101,11 +102,13 @@ episode critical role or a mysterious
 
 
 def main():
+    need_deleting = []
+    added = []
     fetched = 0
     # fetch JSON files describing the playlists
     for pl in PLAYLISTS:
         out = subprocess.check_output(
-            ["youtube-dl", "--dump-single-json", "--flat-playlist", pl])
+            ["/home/aquarius/bin/youtube-dl", "--dump-single-json", "--flat-playlist", pl])
         lst = json.loads(out)
         for detail in lst.get("entries", {}):
             key = detail["url"]
@@ -148,7 +151,7 @@ def main():
             logging.info("Get %s", key)
             try:
                 out2 = subprocess.check_output([
-                    "youtube-dl", "--skip-download", "--write-info-json",
+                    "/home/aquarius/bin/youtube-dl", "--skip-download", "--write-info-json",
                     "--sub-format", "vtt", "--write-auto-sub",
                     "--write-sub", "--sub-lang", "en",
                     "--restrict-filenames", "--id", "-i",
@@ -162,6 +165,7 @@ def main():
                     os.rename(infojson,
                               os.path.join("metadata", "json", infojson))
                     fetched += 1
+                    added.append(key)
                 else:
                     output = out2.decode("utf-8")
                     print("Trying to fetch {} failed to download, with error:".format(key))
@@ -177,7 +181,7 @@ def main():
                         fetched += 1
 
             except subprocess.CalledProcessError as e:
-                if "This video is private" in e.output:
+                if "This video is private" in e.output.decode("utf-8"):
                     print("   skipping private video")
                 else:
                     raise
@@ -207,8 +211,16 @@ def main():
                         print("Do so with:")
                         print("""    sqlite3 cr.db "delete from episode""",
                               """where ytid = '{}';" """.format(key))
+                        need_deleting.append(key)
     print("Fetched {} video{}".format(fetched, "" if fetched == 1 else "s"))
+    return {"added": added, "need_deleting": need_deleting}
 
 
 if __name__ == "__main__":
-    main()
+    resp = main()
+    if "--json-list" in sys.argv:
+        print("BEGIN MACHINE OUTPUT")
+        print("\n".join(resp["added"]))
+        print("\n".join(resp["need_deleting"]))
+
+
