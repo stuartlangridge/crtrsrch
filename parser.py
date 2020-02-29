@@ -316,13 +316,15 @@ HEADER = """<!doctype html>
 
 <title>Critical Role Campaign {campaign} Episode {episode} "{title}" linkable transcript</title>
 
+<link href="https://fonts.googleapis.com/css?family=Eagle+Lake|Roboto:400,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 <main>
-    <h1>Critical Role linkable transcripts</h1>
-    <h2>Campaign {campaign} Episode {episode}</h2>
-    <h2>{title}</h2>
+    <h1>Critical Role</h1>
+    <h2>Linkable transcripts</h2>
+    <h3>Campaign {campaign} Episode {episode}</h3>
+    <h3>{title}</h3>
 
     [[prevnext]]
 
@@ -584,7 +586,7 @@ def main():
                 }
                 master.append(mstr)
 
-            for line in sorted(master, key=lambda d: (d["campaign"], d["e"], d["title"])):
+            for line in reversed(sorted(master, key=lambda d: (d["campaign"], d["e"], d["title"]))):
                 ekey = (line["campaign"], line["e"])
                 if ekey not in written_to_index:
                     fp.write(INDEX_LINE.format(**line))

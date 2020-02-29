@@ -17,7 +17,7 @@ for ytid in $changes; do
 done
 for f in $changes; do
     echo Deleting episode $f
-    sqlite3 cr.db "delete from episode where ytid = '$f';"
+    sqlite3 cr.db "pragma foreign_keys = ON; delete from episode where ytid = '$f';"
 done
 echo Parsing downloaded scripts
 python3 parser.py

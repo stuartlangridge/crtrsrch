@@ -13,11 +13,13 @@
   gtag('config', 'UA-331575-1');
 </script>
 <title>Critical Role linked transcript search</title>
+<link href="https://fonts.googleapis.com/css?family=Eagle+Lake|Roboto:400,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <main>
-<h1>Critical Role linkable transcripts</h1>
+<h1>Critical Role</h1>
+<h2>Linkable transcripts</h2>
 <p>You can <a href="html/index.html">browse all the Critical Role transcripts</a> or search them below.</p>
 <p>For example, find the occasion when <a href="?q=pastries+are+made+with+cinnamon">Jester told a creature of darkness about cinnamon pastries</a>, or look at every time <a href="?q=&quot;burt+reynolds&quot;&amp;SAM=on">Sam mentioned Burt Reynolds</a> or <a href="?q=&quot;diplomatic+immunity&quot;&amp;LIAM=on">Liam quotes Joss Ackland</a>!</p>
 <form method="GET">

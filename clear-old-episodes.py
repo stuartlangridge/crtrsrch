@@ -14,6 +14,8 @@ import os
 def find_or_remove(remove=False):
     con = sqlite3.connect("cr.db")
     crs = con.cursor()
+    crs.execute("pragma foreign_keys = on")
+    crs = con.cursor()
     crs.execute("select id, campaign, episode, title, link, ytid from episode")
     removals = []
     for rowid, campaign, episode, title, link, ytid in crs.fetchall():

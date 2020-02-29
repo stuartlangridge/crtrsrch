@@ -1,5 +1,5 @@
 body {
-    font-family: Georgia, Serif;
+    font-family: Roboto, sans-serif;
     background-color: #fcfcfc;
     background: linear-gradient(to bottom right, #ddd9d6, #f2f2f2, #dbdbdb, #eaeaea);
     border-top:4px solid #333;
@@ -11,17 +11,16 @@ body, select, input, textarea {
 }
 h1, h2, h3, .entry-title, .entry, #sidebar {
     text-align: center;
+    font-family: 'Eagle Lake', Serif;
 }
 h1 {
-    font-size: 2em;
+    font-size: 3em;
     font-weight: 700;
 }
 h2 {
-    font-family: Georgia, Serif;
-    font-size: 2rem;
+    font-size: 1.5rem;
     line-height: 1.2em;
     font-weight: normal;
-    font-style: italic;
     margin: 0 0 0.5em 0;}
 h3 {
     font-size: 1.2rem;
