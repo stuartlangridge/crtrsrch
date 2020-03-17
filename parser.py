@@ -375,7 +375,7 @@ def makedb():
     con = sqlite3.connect("cr.db")
     con.execute("""create table if not exists episode (id integer primary key,
         campaign text, episode text, title text, link text,
-        ytid text, sortkey text, processed boolean)""")
+        ytid text, sortkey text, processed boolean, thumbnail text)""")
     con.execute("""create table if not exists speaker (id integer primary key,
         name text)""")
     con.execute("""create table if not exists line (id integer primary key,
@@ -435,7 +435,7 @@ def main():
         c2 = re.match(r"^(?P<title>.*) \| Critical Role *\| Campaign 2,? (Episode|Epsiode) (?P<ep>[0-9]+)(.*)?$", ft)
         data = {
             "episode": None, "campaign": None, "ytid": root,
-            "title": None, "url": j["webpage_url"]}
+            "title": None, "url": j["webpage_url"], "thumbnail": j["thumbnail"]}
         if c1:
             data["episode"] = c1.groupdict()["ep"]
             data["title"] = c1.groupdict()["title"]
@@ -445,8 +445,10 @@ def main():
             data["title"] = c2.groupdict()["title"]
             data["campaign"] = "2"
         elif root in HARDCODED:
+            th = data["thumbnail"]
             data = HARDCODED[root]
             data["ytid"] = root
+            data["thumbnail"] = th
         elif root in IGNORED_NON_EPISODES:
             continue
         else:
@@ -531,12 +533,13 @@ def main():
                 int(data["campaign"]),
                 float(data["episode"])
             ),
-            "processed": (data["campaign"], data["episode"]) not in unprocessed_episodes
+            "processed": (data["campaign"], data["episode"]) not in unprocessed_episodes,
+            "thumbnail": data["thumbnail"]
         }
         master.append(mstr)
         crs = con.cursor()
-        crs.execute("""insert into episode (campaign, episode, title, link, ytid, sortkey, processed)
-            values (:campaign, :episode, :title, :yt, :ytid, :sortkey, :processed)""", mstr)
+        crs.execute("""insert into episode (campaign, episode, title, link, ytid, sortkey, processed, thumbnail)
+            values (:campaign, :episode, :title, :yt, :ytid, :sortkey, :processed, :thumbnail)""", mstr)
         inserted_episode_id = crs.lastrowid
         for line in data["transcript"]:
             crs.execute("""insert into line

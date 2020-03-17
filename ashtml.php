@@ -9,26 +9,14 @@ if (file_exists($cachepath)) {
 } else {
 $results = query($qu);
 ob_start();
-?>
-<table>
-<thead>
-    <tr>
-        <th></th>
-        <th>Speaker</th>
-        <th>Episode</th>
-        <th></th>
-        <th></th>
-    </tr>
-</thead>
-<tbody>
-<?php
 
 foreach ($results as $key => $res) {
-    echo "<tr><td>";
+    echo "<article><div class='thumb'><img class='thumb' src='" . htmlentities($res["thumbnail"]) . "'></div>\n";
+    echo "<div class='count'>";
     echo ($key + 1) . "/" . count($results);
-    echo "</td>\n<td><strong>";
+    echo "</div>\n<div class='speaker'>";
     echo htmlentities($res["speaker"]);
-    echo "</strong></td>\n<td>";
+    echo "</div>\n<div class='episode'>";
     echo "C";
     echo $res["campaign"];
     echo "E";
@@ -41,7 +29,7 @@ foreach ($results as $key => $res) {
     printf("%02d", $res["time_m"]);
     echo ":";
     printf("%02d", $res["time_s"]);
-    echo ")</small></td>\n<td>";
+    echo ")</small></div>\n<div class='links'>";
     echo '<a href="html/cr';
     echo $res["campaign"];
     echo "-";
@@ -53,7 +41,7 @@ foreach ($results as $key => $res) {
     echo "m";
     echo $res["time_s"];
     echo 's';
-    echo '">[<span>in </span>transcript]</a> ';
+    echo '">transcript</a> ';
     echo '<a href="';
     echo $res["episode_yt"];
     echo "&t=";
@@ -62,16 +50,13 @@ foreach ($results as $key => $res) {
     echo $res["time_m"];
     echo "m";
     echo $res["time_s"];
-    echo 's">[video]</a>';
-    echo "</td></tr>";
-    echo "<tr>\n<td colspan=5>";
+    echo 's">video</a>';
+    echo "</div>\n";
+    echo "<div class='line'>";
     echo $res["line"];
-    echo "</td></tr>";
+    echo "</div></article>";
 }
-?>
-</tbody>
-</table>
-<?php
+
 if (count($results) >= 100) {
     echo "<p><small>Search results are limited to the first 100. Refine your search if needed.</small></p>";
 }

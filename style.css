@@ -1,8 +1,6 @@
 body {
     font-family: Roboto, sans-serif;
-    background-color: #fcfcfc;
-    background: linear-gradient(to bottom right, #ddd9d6, #f2f2f2, #dbdbdb, #eaeaea);
-    border-top:4px solid #333;
+    background-color: #f5f8ff;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
@@ -48,7 +46,7 @@ footer p {
 }
 
 main {
-    max-width: 38rem;
+    max-width: 48rem;
     padding: 2rem;
     margin: auto;
 }
@@ -63,28 +61,44 @@ a:visited {
     color: #ccc;
 }
 
-table {
-    border-collapse: collapse;
-    width: 100%;
+article {
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr 4fr 100px;
+    grid-template-rows: 40px auto;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
 }
-td {
-    vertical-align: top;
-    padding: 0.1em;
+article div.thumb {
+    grid-column-start: 1;
+    grid-row-start: 1;
+    grid-row-end: span 2;
 }
-tbody tr:nth-child(2n+1) {
-    border-top: 1px solid #727A8B;
+article div.count {
+    grid-column-start: 2;
+    grid-row-start: 1;
 }
-tr:nth-child(2n) td {
-    padding-bottom: 1em;
+article div.speaker {
+    grid-column-start: 3;
+    grid-row-start: 1;
+    font-weight: bold;
 }
-th { text-align: left;
- }
-
-tbody tr:nth-child(2n+1) td:last-child {
-    text-align: right;
-    white-space: nowrap;
+article div.episode {
+    grid-column-start: 4;
+    grid-row-start: 1;
 }
-
+article div.links {
+    grid-column-start: 5;
+    grid-row-start: 1;
+    grid-row-end: span 2;
+}
+article div.line {
+    grid-column-start: 2;
+    grid-row-start: 2;
+    grid-column-end: span 3;
+}
 
 #list ul {
   list-style: none;
@@ -172,15 +186,13 @@ nav ul li:nth-child(1) {
     border: 2px solid #ff880088;
 }
 
-@media (max-width: 800px) {
-    h1 { font-size: 1.3em; }
-    h2 { font-size: 1.3em; }
-    main { padding: 0.5rem; }
-    nav ul { font-size: 1em; }
-    tbody tr:nth-child(2n+1) td:last-child { white-space: normal; }
-    tbody tr:nth-child(2n+1) td:last-child span { display: none; }
-    form ul { grid-template-columns: repeat(4, 1fr); }
-    input[type="search"] { width: 100%; font-size: 1.2em; border-color: #777; }
+input[type="search"] {
+    border-width: 0;
+    border-radius: 5px;
+    box-shadow: rgba(220, 220, 255, 0.4) 4px 4px 2px;
+    padding: 0.5em;
+    font-size: 1.5em;
+    width: 100%;
 }
 
 .prevnext {
@@ -202,4 +214,90 @@ nav ul li:nth-child(1) {
 span.unprocessed {
     font-size: 60%;
     background: yellow;
+}
+img.thumb {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+}
+.links a {
+    display: block;
+    width: 104px;
+    height: 44px;
+    line-height: 44px;
+    text-align: right;
+    padding-right: 50px;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-size: 44px 44px;
+    background-position: center right;
+    color: black;
+    font-size: 10px;
+    text-decoration: none;
+    /* https://codepen.io/sosuke/pen/Pjoqqp */
+    filter: invert(39%) sepia(73%) saturate(3564%) hue-rotate(227deg) brightness(102%) contrast(101%);
+}
+.links a:nth-child(1) {
+    background-image: url(document.svg);
+    margin-bottom: 2px;
+}
+.links a:nth-child(2) {
+    background-image: url(video.svg);
+}
+.links a:visited {
+    /* https://codepen.io/sosuke/pen/Pjoqqp */
+    filter: invert(60%) sepia(19%) saturate(1170%) hue-rotate(201deg) brightness(90%) contrast(92%);
+}
+
+@media (max-width: 800px) {
+    h1 { font-size: 1.3em; }
+    h2 { font-size: 1.3em; }
+    main { padding: 0.5rem; }
+    nav ul { font-size: 1em; }
+    form ul { grid-template-columns: repeat(4, 1fr); }
+    input[type="search"] { width: 100%; font-size: 1.2em; border-color: #777; }
+
+    article {
+        grid-template-columns: 40px 1fr 3fr auto;
+        grid-template-rows: auto auto auto;
+        grid-gap: 10px;
+    }
+    article div.thumb {
+        grid-column-start: 1;
+        grid-row-start: 1;
+        grid-row-end: span 2;
+    }
+    article div.count {
+        grid-column-start: 2;
+        grid-row-start: 1;
+    }
+    article div.speaker {
+        grid-column-start: 3;
+        grid-row-start: 1;
+        font-weight: bold;
+    }
+    article div.episode {
+        grid-column-start: 2;
+        grid-row-start: 2;
+        grid-column-end: span 2;
+    }
+    article div.links {
+        grid-column-start: 4;
+        grid-row-start: 1;
+        grid-row-end: span 2;
+    }
+    article div.line {
+        grid-column-start: 1;
+        grid-row-start: 3;
+        grid-column-end: span 4;
+    }
+    img.thumb {
+        width: 40px;
+        height: 40px;
+    }
+    .links a {
+        width: auto;
+    }
 }

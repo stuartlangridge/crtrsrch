@@ -4,7 +4,8 @@ function query($q) {
     $db = new SQLite3('cr.db');
     $sql = <<<SQL
     select e.campaign, e.episode, e.title, e.link, l.html,
-           group_concat(s.name, ', '), l.time_h, l.time_m, l.time_s
+           group_concat(s.name, ', '), l.time_h, l.time_m, l.time_s,
+           e.thumbnail
         from line_fts f
         inner join line l on f.line_id = l.id
         inner join episode e on l.episode_id = e.id
@@ -55,7 +56,8 @@ SQL;
             "speaker" => $row[5],
             "time_h" => $row[6],
             "time_m" => $row[7],
-            "time_s" => $row[8]
+            "time_s" => $row[8],
+            "thumbnail" => $row[9]
         );
     }
     return $ret;
