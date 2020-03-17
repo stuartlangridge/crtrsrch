@@ -26,7 +26,7 @@
     if (isset($_GET["q"])) {
         echo htmlspecialchars($_GET["q"], ENT_QUOTES);
     }
-    ?>" placeholder="nein!">
+    ?>" placeholder="search here!">
     <ul>
         <li><label><input type="checkbox" name="ASHLEY"
         <?php
