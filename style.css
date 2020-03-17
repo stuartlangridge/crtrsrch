@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Amethysta|Roboto:400,700&display=swap');
+
 body {
     font-family: Roboto, sans-serif;
     background-color: #f5f8ff;
@@ -9,11 +11,12 @@ body, select, input, textarea {
 }
 h1, h2, h3, .entry-title, .entry, #sidebar {
     text-align: center;
-    font-family: 'Eagle Lake', Serif;
+    font-family: 'Amethysta', Serif;
 }
 h1 {
     font-size: 3em;
     font-weight: 700;
+    margin-bottom: 0.1em;
 }
 h2 {
     font-size: 1.5rem;

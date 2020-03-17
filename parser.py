@@ -316,7 +316,6 @@ HEADER = """<!doctype html>
 
 <title>Critical Role Campaign {campaign} Episode {episode} "{title}" linkable transcript</title>
 
-<link href="https://fonts.googleapis.com/css?family=Eagle+Lake|Roboto:400,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../style.css">
 </head>
 <body>

@@ -13,7 +13,6 @@
   gtag('config', 'UA-331575-1');
 </script>
 <title>Critical Role linked transcript search</title>
-<link href="https://fonts.googleapis.com/css?family=Eagle+Lake|Roboto:400,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -148,6 +147,7 @@ function inline() {
     }
 }
 if (document.querySelector && window.fetch && window.URLSearchParams && Array.from) { inline(); }
+
 </script>
 </body>
 </html>
