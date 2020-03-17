@@ -346,7 +346,7 @@ transcript is the
 closed captions</a> from Twitch, and hasn't yet been processed by the
 transcript team. This means that searching won’t work very well against it
 yet, and nor will searching by character. It will update in time; be patient,
-<a href="https://crtranscript.tumblr.com/post/186968699597/how-to-submit-corrections-maybe-put-the#notes">they
+<a href="https://critrole.com/cr-transcript-closed-captions-update/">they
 work very hard</a>. You can still view <a href="https://youtube.com/watch?v={ytid}">the
 episode itself on YouTube</a>.</p>"""
 
