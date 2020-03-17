@@ -240,7 +240,7 @@ img.thumb {
     font-size: 10px;
     text-decoration: none;
     /* https://codepen.io/sosuke/pen/Pjoqqp */
-    filter: invert(39%) sepia(73%) saturate(3564%) hue-rotate(227deg) brightness(102%) contrast(101%);
+    filter: invert(39%) sepia(73%) saturate(3564%) hue-rotate(227deg) brightness(102%) contrast(51%);
 }
 .links a:nth-child(1) {
     background-image: url(document.svg);
