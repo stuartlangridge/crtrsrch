@@ -168,20 +168,15 @@ nav ul li:nth-child(1) {
     text-align: right;
 }
 
-:target::before { /* push down below the header */
-    content: "";
-    display: block;
-    margin-top: -100px;
-    padding-top: 100px;
-}
 :target { /* box around linked-to item */
     position: relative;
+    scroll-margin-top: 8em;
 }
 :target::after {
     content: "";
     position: absolute;
     z-index: -1;
-    top: calc(100px - 0.5em);
+    top: -0.5em;
     left: -0.5em;
     right: -0.5em;
     bottom: -0.5em;
