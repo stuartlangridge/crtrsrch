@@ -5,6 +5,8 @@ body {
     background-color: #f5f8ff;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    background-image: url(bg-fs8.png);
+    background-size: 600px 524px;
 }
 body, select, input, textarea {
     color: #111;
