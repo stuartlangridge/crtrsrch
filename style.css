@@ -193,6 +193,7 @@ input[type="search"] {
     padding: 0.5em;
     font-size: 1.5em;
     width: 100%;
+    background: white;
 }
 
 .prevnext {
