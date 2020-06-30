@@ -20,6 +20,7 @@ SKIP = [
     "mHfXAXM4O3E",  # intro
     "7J4fg79Utsk",  # fan submissions
     "5UwEc10_DcI",  # slayer's cake ad
+    "LVze229omm4",  # state of the role: cr return updates
 ]
 
 FAKE_VTT = """WEBVTT
@@ -108,7 +109,7 @@ def main():
     # fetch JSON files describing the playlists
     for pl in PLAYLISTS:
         out = subprocess.check_output(
-            ["/home/aquarius/bin/youtube-dl", "--dump-single-json", "--flat-playlist", pl])
+            ["youtube-dl", "--dump-single-json", "--flat-playlist", pl])
         lst = json.loads(out)
         for detail in lst.get("entries", {}):
             key = detail["url"]
@@ -151,7 +152,7 @@ def main():
             logging.info("Get %s", key)
             try:
                 out2 = subprocess.check_output([
-                    "/home/aquarius/bin/youtube-dl", "--skip-download", "--write-info-json",
+                    "youtube-dl", "--skip-download", "--write-info-json",
                     "--sub-format", "vtt", "--write-auto-sub",
                     "--write-sub", "--sub-lang", "en",
                     "--restrict-filenames", "--id", "-i",
