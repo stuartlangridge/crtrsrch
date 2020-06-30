@@ -10,6 +10,10 @@ if (file_exists($cachepath)) {
 $results = query($qu);
 ob_start();
 
+if (count($results) >= 100) {
+    echo "<p><small>Search results are limited to the first 100. Refine your search if needed.</small></p>";
+}
+
 foreach ($results as $key => $res) {
     echo "<article><div class='thumb'><img class='thumb' src='" . htmlentities($res["thumbnail"]) . "'></div>\n";
     echo "<div class='count'>";
