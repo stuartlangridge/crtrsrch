@@ -81,7 +81,7 @@ if (isset($_GET["q"])) {
     <p>And a <a href="https://critrole.com/">Critical Role</a>
     thing, of course.</p>
     <p>Mostly a Critical Role thing. And a CRTranscript thing.
-    Stuart just tied all their hard work together.</p>
+    Stuart just tied all their hard work together. There are some limited <a href="api.html">“API” docs</a>.</p>
 </footer>
 </main>
 <script>
