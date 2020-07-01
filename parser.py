@@ -354,7 +354,8 @@ FOOTER = """
     [[prevnext]]
 
     <footer>
-        <p>This is an <a href="https://kryogenix.org/">@sil</a> thing.</p>
+        <p>This is an <a href="https://kryogenix.org/">@sil</a> thing.
+        Ping him <a href="https://twitter.com/sil">on Twitter</a> about problems.</p>
         <p>And a <a href="https://critrole.com/">Critical Role</a>
         thing, of course.</p>
         <p>Mostly a Critical Role thing. And a CRTranscript thing.
