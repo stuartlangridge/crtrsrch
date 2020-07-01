@@ -10,14 +10,21 @@ if (file_exists($cachepath)) {
 $results = query($qu);
 ob_start();
 
-if (count($results) >= 100) {
-    echo "<p><small>Search results are limited to the first 100. Refine your search if needed.</small></p>";
+if ($results['count'] >= 100) {
+    echo "<p><small>Search results are limited to the first 100 (of ";
+    echo $results["count"];
+    echo " for this search). Refine your search if needed.</small></p>";
 }
 
-foreach ($results as $key => $res) {
+$rcount = $results["count"];
+if ($rcount > 100) {
+    $rcount = 100;
+}
+
+foreach ($results['results'] as $key => $res) {
     echo "<article><div class='thumb'><img class='thumb' src='" . htmlentities($res["thumbnail"]) . "'></div>\n";
     echo "<div class='count'>";
-    echo ($key + 1) . "/" . count($results);
+    echo ($key + 1) . "/" . $rcount;
     echo "</div>\n<div class='speaker'>";
     echo htmlentities($res["speaker"]);
     echo "</div>\n<div class='episode'>";
@@ -61,8 +68,10 @@ foreach ($results as $key => $res) {
     echo "</div></article>";
 }
 
-if (count($results) >= 100) {
-    echo "<p><small>Search results are limited to the first 100. Refine your search if needed.</small></p>";
+if ($results['count'] > 100) {
+    echo "<p><small>Search results are limited to the first 100 (of ";
+    echo $results["count"];
+    echo " for this search). Refine your search if needed.</small></p>";
 }
 
 $output = ob_get_clean();

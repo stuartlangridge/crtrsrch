@@ -41,13 +41,13 @@ SQL;
         }
     }
     @$results = $statement->execute();
-    $ret = [];
+    $ret = ['count' => 0, 'results' => []];
     if ($results === FALSE) { return $ret; }
     $count = 0;
     while ($row = $results->fetchArray()) {
-        if ($count > 100) break;
         $count += 1;
-        $ret[] = array(
+        if ($count > 100) continue;
+        $ret['results'][] = array(
             "campaign" => $row[0],
             "episode" => $row[1],
             "episode_title" => $row[2],
@@ -60,6 +60,7 @@ SQL;
             "thumbnail" => $row[9]
         );
     }
+    $ret['count'] = $count;
     return $ret;
 }
 ?>
