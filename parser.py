@@ -23,7 +23,6 @@ MISSPELLINGS = {
     "ASHELY": "ASHLEY",
     "AHSLEY": "ASHLEY",
     "AHSLY": "ASHLEY",
-    "ASHLY": "ASHLEY",
     "ASHEY": "ASHLEY",
     "MARISA": "MARISHA",
     "MAIRSHA": "MARISHA",
