@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-331575-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-331575-1');
+</script>
+<title>Critical Role linked transcript search: API</title>
+<link rel="stylesheet" href="style.css">
+<style>
+h3 {
+    text-align: left;
+    font-weight: bold;
+    text-decoration: underline;
+}
+code {
+    color: #ac1d1c;
+    font-size: 0.8em;
+    background: #eee;
+    border: 1px solid #ccc;
+    padding: 2px;
+}
+pre {
+    font-size: 1.1rem;
+}
+</style>
+</head>
+<body>
+<main>
+<h1>Critical Role</h1>
+<h2>Linkable transcripts: the “API”</h2>
+<p>Given that we have a database of all the lines spoken in all the episodes of Critical Role
+    campaigns 1 and 2, there are a few other small useful things that can be done here.</p>
+<p>You can already <a href="html/index.html">browse all the Critical Role transcripts</a> or <a href="./">search them</a>, but it's useful to, for example, link to a particular time, or link to a particular video, without
+having to look up the details.</p>
+<p>That's what this page is for: it describes the “API” that's available to other sites to link into the transcripts and episodes here.</p>
+
+<h3>Linking to a transcript line by time</h3>
+<p>If you want to link to a particular part of a transcript by time, use <code>bytime.php</code> by constructing a link like the below. Let's say you want to link to the time 1h13m22s in episode 25 of campaign 2, <em>Divergent Paths</em>. Construct this link:</p>
+<p><code>https://kryogenix.org/crsearch/bytime.php?c=2&amp;e=25&amp;h=1&amp;m=13&amp;s=22</code></p>
+<p>This link will redirect to the line in the transcript of that episode which happens at the time you specify. It does <em>not</em> have to be the exact time a line starts; if you provide a time which doesn't match up exactly with a line, then the latest line that happens <em>before</em> that time is the one redirected to. You can <a href="bytime.php?c=2&amp;e=25&amp;h=1&amp;m=13&amp;s=22">try the above link here</a>, and you'll see that it links to a line spoken by Marisha, at 1h 13m and <em>21</em> seconds.</p>
+
+<h3>Linking to a YouTube video by campaign and episode number</h3>
+<p>It is occasionally useful to be able to link directly to a video of CR when what you know is its episode number: Campaign 2, Episode 71, for example. It's possible to look this up by hand, but if you want to automate this process (if you are, for example, <a href="https://critrolestats.com">CritRoleStats</a> or something) then it's good to not have to. So, if what you know is that this is episode <code>2-71 Family Gathering</code>, then you can construct a link which will redirect straight to the YouTube video of this episode like this:</p>
+
+<p><code>https://kryogenix.org/crsearch/redir.php?q=2-71 Family Gathering&time=1h2m3s</code></p>
+
+<p>Specify the episode number and name with <code>q=</code> in the URL. The formatting for this is a little picky: you need to specify three parts, here, <code>C-E TITLE</code>. That is: the <code>q=</code> value you provide must be <code>1-18 Some Title Here</code> or similar. The redirector doesn't actually <em>check</em> the title, so you could if you really need to construct a link with <code>q=2-19 Some Made Up Lies</code>, but the campaign and episode numbers must be present and connected with a hyphen. Episode numbers do not need to be zero-prefixed: use <code>2-9</code>, not <code>2-09</code>.</p>
+
+<p>You <em>must</em> also specify <code>time=1h1m1s</code> (with the time point you want), which is passed on to YouTube. All of <code>h</code>, <code>m</code> and <code>s</code> must be specified. If you don't care about the time and just want to link to the episode as a whole, provide <code>time=0h0m0s</code>.</p>
+
+<footer>
+    <p>
+        <a href="html/index.html">list of episodes</a>
+        |
+        <a href="./">search transcripts</a>
+    </p>
+    <p>This is an <a href="https://kryogenix.org/">@sil</a> thing. Ping him <a href="https://twitter.com/sil">on Twitter</a> about problems.</p>
+    <p>And a <a href="https://critrole.com/">Critical Role</a>
+    thing, of course.</p>
+    <p>Mostly a Critical Role thing. And a CRTranscript thing.
+    Stuart just tied all their hard work together.</p>
+</footer>
+</main>
+</body>
+</html>
