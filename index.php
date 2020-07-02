@@ -5,6 +5,16 @@
 <meta charset="utf-8">
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-331575-1"></script>
+<?php if (isset($_GET["q"])) { ?>
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@sil" />
+<meta name="twitter:title"
+content="Critical Role transcripts: &quot;<?php echo htmlspecialchars($_GET["q"], ENT_QUOTES); ?>&quot;" />
+<meta name="twitter:description" content="Search the CR transcripts yourself!" />
+<meta name="twitter:image"
+content="https://kryogenix.org/crsearch/embedimg.php?<?php echo $_SERVER['QUERY_STRING']; ?>" />
+<?php } ?>
+
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
