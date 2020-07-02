@@ -41,6 +41,9 @@ p {
 footer {
     border-top: 4px solid #333;
     margin-top: 2em;
+    padding-right: 50px;
+    background: url(trlogo.png) bottom right no-repeat;
+    background-size: 40px 40px;
 }
 footer p {
     font-size: 0.8rem;
