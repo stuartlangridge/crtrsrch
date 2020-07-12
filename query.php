@@ -32,6 +32,37 @@ SQL;
         }
         $sql .= ")";
     }
+    if (isset($_GET["lm"])) {
+        switch ($_GET["lm"]) {
+            case "1-a":
+                $sql .= " and campaign = '1' and cast(episode as decimal) < 51 ";
+                break;
+            case "1-b":
+                $sql .= " and campaign = '1' and cast(episode as decimal) > 50 and cast(episode as decimal) < 101 ";
+                break;
+            case "1-c":
+                $sql .= " and campaign = '1' and cast(episode as decimal) > 100 ";
+                break;
+            case "2-a":
+                $sql .= " and campaign = '2' and cast(episode as decimal) < 51 ";
+                break;
+            case "2-b":
+                $sql .= " and campaign = '2' and cast(episode as decimal) > 50 and cast(episode as decimal) < 101 ";
+                break;
+            case "2-c":
+                $sql .= " and campaign = '2' and cast(episode as decimal) > 100 ";
+                break;
+            case "3-a":
+                $sql .= " and campaign = '3' and cast(episode as decimal) < 51 ";
+                break;
+            case "3-b":
+                $sql .= " and campaign = '3' and cast(episode as decimal) > 50 and cast(episode as decimal) < 101 ";
+                break;
+            case "3-c":
+                $sql .= " and campaign = '3' and cast(episode as decimal) > 100 ";
+                break;
+        }
+    }
     $sql .= " group by l.id order by e.sortkey desc";
     $statement = $db->prepare($sql);
     $statement->bindValue(':q', $q);
