@@ -22,7 +22,7 @@ done
 echo Parsing downloaded scripts
 python3 parser.py
 echo Constructing full zip file
-zip -q cr_full.zip -r html README.zip.md tojson.py >
+zip -q cr_full.zip -r html README.zip.md tojson.py
 echo Deploying to live
 bash deploy.sh --quiet $cache_purge_eps
 echo ==================================================================
