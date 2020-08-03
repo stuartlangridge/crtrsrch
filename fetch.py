@@ -154,11 +154,14 @@ def main():
                 out2 = subprocess.check_output([
                     "youtube-dl", "--skip-download", "--write-info-json",
                     "--sub-format", "vtt", "--write-auto-sub",
-                    "--write-sub", "--sub-lang", "en",
+                    "--write-sub", "--sub-lang", "en,en-US",
                     "--restrict-filenames", "--id", "-i",
                     "https://www.youtube.com/watch?v={}".format(key)],
                     stderr=subprocess.STDOUT)
                 vtt = "{}.en.vtt".format(key)
+                vtt_us = "{}.en-US.vtt".format(key)
+                if os.path.exists(vtt_us):
+                    os.rename(vtt_us, vtt)
                 infojson = "{}.info.json".format(key)
                 if (os.path.exists(vtt) and os.path.exists(infojson)):
                     fixAutoCaptionedVTT(vtt)
