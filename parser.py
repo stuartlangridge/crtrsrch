@@ -272,7 +272,7 @@ IGNORED_NON_EPISODES = [
     "oSv-RSfkzGA",  # CR: The Perfume from Critical Role
     "mHfXAXM4O3E",  # Check Out CRITICAL ROLE's New Intro!
     "_NmZ2b_Q3So",  # Talks Machina: Discussing C2E84 - Titles and Tattoos
-
+    "LVze229omm4",  # state of the role: cr return updates
 ]
 
 INDEX_HEADER = """<!doctype html>
