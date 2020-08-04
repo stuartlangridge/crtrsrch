@@ -509,9 +509,13 @@ def main():
                     "yt": "https://youtube.com/watch?v={}&t={}h{}m{}s".format(
                         root, line["start"][0], line["start"][1], line["start"][2]),
                     "lid": "l{}h{}m{}s".format(
-                            line["start"][0], line["start"][1], line["start"][2])
+                        line["start"][0], line["start"][1], line["start"][2])
                 }
-                fp.write(LINE_DD.format(**d))
+                lineout = LINE_DD.format(**d)
+                if d["text_nl"].startswith("(dramatic sound effects)") and \
+                   d["text_nl"].endswith("(flames whooshing)"):
+                    lineout = lineout.replace("<dd ", '<dd class="cr-theme" ')
+                fp.write(lineout)
             fp.write(FOOTER.format(**data))
         try:
             e = int(data["episode"])

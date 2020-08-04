@@ -7,6 +7,7 @@ changes=$(python3 fetch.py --json-list 2>&1 | awk '/./{if(found) print} /BEGIN M
 count=$(echo -n "$changes" | grep -c '^')
 if [ $count -eq 0 ]; then
     echo Nothing to do
+    echo $changes
     exit 0
 fi
 echo $count episodes to process
