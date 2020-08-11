@@ -3,11 +3,12 @@
 echo ==================================================================
 echo Critical Role script updater running at $(date)
 cd $(dirname $0)
-changes=$(python3 fetch.py --json-list 2>&1 | awk '/./{if(found) print} /BEGIN MACHINE OUTPUT/{found=1}')
+output=$(python3 fetch.py --json-list 2>&1)
+changes=$(echo "$output" | awk '/./{if(found) print} /BEGIN MACHINE OUTPUT/{found=1}')
 count=$(echo -n "$changes" | grep -c '^')
 if [ $count -eq 0 ]; then
     echo Nothing to do
-    echo $changes
+    echo $output
     exit 0
 fi
 echo $count episodes to process
