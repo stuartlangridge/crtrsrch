@@ -10,7 +10,7 @@ function begone() {
 }
 
 $c = intval($_GET["c"]);
-$e = intval($_GET["e"]);
+$e = $_GET["e"];
 $h = intval($_GET["h"]);
 $m = intval($_GET["m"]);
 $s = intval($_GET["s"]);
