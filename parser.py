@@ -264,7 +264,16 @@ HARDCODED = {
                  'title': 'TO THE POOP! - The Goblins (Pathfinder)'},
  'uw1crQ1d9AU': {'campaign': '1',
                  'episode': '45.01',
-                 'title': 'Cindergrove Revisited'}
+                 'title': 'Cindergrove Revisited'},
+ 'K-k2JpMSa_k': {'campaign': '1',
+                 'episode': '31.01',
+                 'title': 'Gunpowder Plot, pt. 2'},
+ 'iP1gylnxfLU': {'campaign': '1',
+                 'episode': '33.01',
+                 'title': 'Reunions, pt. 2'},
+ 'WFbmY79Qdfc': {'campaign': '1',
+                 'episode': '35.01',
+                 'title': 'Denouement, pt. 2'}
 }
 
 IGNORED_NON_EPISODES = [
@@ -435,7 +444,12 @@ def main():
         data = {
             "episode": None, "campaign": None, "ytid": root,
             "title": None, "url": j["webpage_url"], "thumbnail": j["thumbnail"]}
-        if c1:
+        if root in HARDCODED:
+            th = data["thumbnail"]
+            data = HARDCODED[root]
+            data["ytid"] = root
+            data["thumbnail"] = th
+        elif c1:
             data["episode"] = c1.groupdict()["ep"]
             data["title"] = c1.groupdict()["title"]
             data["campaign"] = "1"
@@ -443,11 +457,6 @@ def main():
             data["episode"] = c2.groupdict()["ep"]
             data["title"] = c2.groupdict()["title"]
             data["campaign"] = "2"
-        elif root in HARDCODED:
-            th = data["thumbnail"]
-            data = HARDCODED[root]
-            data["ytid"] = root
-            data["thumbnail"] = th
         elif root in IGNORED_NON_EPISODES:
             continue
         else:
@@ -577,8 +586,11 @@ def main():
             written_to_index = set()
             for row in crs.fetchall():
                 try:
-                    e = int(row[1])
-                    dispe = e
+                    e = float(row[1])
+                    if int(e) == e:
+                        dispe = int(e)
+                    else:
+                        dispe = row[1]
                 except:
                     e = 99999
                     dispe = "(special)"
