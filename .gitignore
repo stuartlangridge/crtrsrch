@@ -1,0 +1,11 @@
+cr.db
+cr.db.old
+cr_full.zip
+deploy.sh
+html
+json_transcripts
+metadata
+updates.log
+cache
+__pycache__
+cleancache.sh
