@@ -1,0 +1,5 @@
+* show some indication that a search has no results when it in fact had no results. Work out what to do in this case for partially typed searches
+* something odd happens with the search box, on iPads running pre-release iOS 14: see https://twitter.com/tarasis/status/1278027218028019712
+* have it a11y checked -- it should be basically OK, but it doubtless could be better. In particular, the per-line links in transcripts; how should they be marked up?
+* tell people about the more clever variants of sqlite FTS?
+* Add a "guest player" checkbox?
