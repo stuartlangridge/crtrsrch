@@ -139,7 +139,7 @@ def main():
                             current_untagged_lines += 1
                             if current_untagged_lines > largest_untagged_lines:
                                 largest_untagged_lines = current_untagged_lines
-                    if largest_untagged_lines > 1000 or tagged_lines < 25:
+                    if largest_untagged_lines > 2000 or tagged_lines < 25:
                         print("Re-fetch live captioned '{}' ({})".format(
                               jdetails["fulltitle"], key))
                         is_ok = False
