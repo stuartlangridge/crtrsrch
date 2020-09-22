@@ -147,7 +147,11 @@ def parse(file):
             else:
                 # print("  append to previous")
                 if transcript: # skip any text which is first and not a person
-                    transcript[-1]["text"].append(pline)
+                    prevtext = " ".join(transcript[-1]["text"])
+                    npline = pline
+                    if prevtext.count('"') % 2 == 1 and npline.startswith('"'):
+                        npline = npline[1:]
+                    transcript[-1]["text"].append(npline)
                     transcript[-1]["time"][1] = time[1]
         # print("----END", transcript[-2:])
         return c
