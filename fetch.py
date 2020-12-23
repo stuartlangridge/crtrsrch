@@ -109,7 +109,7 @@ def main():
     # fetch JSON files describing the playlists
     for pl in PLAYLISTS:
         out = subprocess.check_output(
-            ["/snap/bin/youtube-dl", "--dump-single-json", "--flat-playlist", pl])
+            ["/home/aquarius/bin/youtube-dl", "--dump-single-json", "--flat-playlist", pl])
         lst = json.loads(out)
         for detail in lst.get("entries", {}):
             key = detail["url"]
@@ -152,7 +152,7 @@ def main():
             logging.info("Get %s", key)
             try:
                 out2 = subprocess.check_output([
-                    "/snap/bin/youtube-dl", "--skip-download", "--write-info-json",
+                    "/home/aquarius/bin/youtube-dl", "--skip-download", "--write-info-json",
                     "--sub-format", "vtt", "--write-auto-sub",
                     "--write-sub", "--sub-lang", "en,en-US",
                     "--restrict-filenames", "--id", "-i",
