@@ -277,7 +277,16 @@ HARDCODED = {
                  'title': 'Reunions, pt. 2'},
  'WFbmY79Qdfc': {'campaign': '1',
                  'episode': '35.01',
-                 'title': 'Denouement, pt. 2'}
+                 'title': 'Denouement, pt. 2'},
+ 'pVu_Ib1fpVI': {'campaign': '1',
+                 'episode': '115.12',
+                 'title': 'The Adventures of the Darrington Brigade'},
+ '0oclW3MXABA': {'campaign': '1',
+                 'episode': '115.11',
+                 'title': 'Dalen\'s Closet'},
+ 'AfEZF5G9HV4': {'campaign': '1',
+                 'episode': '115.10',
+                 'title': 'The Search For Bob'}
 }
 
 IGNORED_NON_EPISODES = [
