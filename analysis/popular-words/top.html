@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Critical Role transcripts common words analysis</title>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-331575-1"></script>
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@sil" />
+<meta name="twitter:title"
+content="Critical Role transcripts common words analysis" />
+<meta name="twitter:description" content="Things commonly said by the Critical Role cast" />
+<meta name="twitter:image"
+content="https://kryogenix.org/crsearch/embedimg.php?q=%22common%22" />
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-331575-1');
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;700&family=Roboto+Condensed:wght@300;400&display=swap" rel="stylesheet"> 
+<style>
+html, body { margin: 0; padding: 0; }
+body {
+    padding: 1em;
+    min-height: 100vh;
+    background-color: #434;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    background-image: url(https://kryogenix.org/crsearch/bg-fs8.png);
+    background-size: 600px 524px;
+    color: white;
+}
+#people li {
+  list-style: none;
+  line-height: 2.5em;
+  margin: 0;
+  color: white;
+  position: relative;
+  transition: all 200ms linear;
+
+  height: 0px;
+  overflow: hidden;
+  opacity: 0;
+  padding: 0 1em;
+}
+#people li::after {
+    counter-increment: li;
+    content: counter(li);
+    position: absolute;
+    right: 10px;
+    color: rgba(255, 255, 255, 0.15);
+    font-size: 2em;
+    font-weight: 300;
+}
+#people li:nth-child(n+99)::after {
+    font-size: 1.4em;
+}
+
+#people li::before {
+    position: absolute;
+    height: 1.5em;
+    width: 1.5em;
+    top: 0.5em;
+    right: 45px;
+    background-size: contain;
+    content: "";
+    background-repeat: no-repeat;
+    background-blend-mode: lighten;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+#people {
+    flex-basis: 100%;
+}
+
+input#all:checked ~ #people div:nth-of-type(1) ol, #people div:nth-of-type(1) ol::after, #people div:nth-of-type(1) h2::after { background-color: #d00; }
+input#all:checked ~ #people div:nth-of-type(2) ol, #people div:nth-of-type(2) ol::after, #people div:nth-of-type(2) h2::after { background-color: #080; }
+input#all:checked ~ #people div:nth-of-type(3) ol, #people div:nth-of-type(3) ol::after, #people div:nth-of-type(3) h2::after { background-color: #00d; }
+input#all:checked ~ #people div:nth-of-type(4) ol, #people div:nth-of-type(4) ol::after, #people div:nth-of-type(4) h2::after { background-color: #880; }
+input#all:checked ~ #people div:nth-of-type(5) ol, #people div:nth-of-type(5) ol::after, #people div:nth-of-type(5) h2::after { background-color: #808; }
+input#all:checked ~ #people div:nth-of-type(6) ol, #people div:nth-of-type(6) ol::after, #people div:nth-of-type(6) h2::after { background-color: #088; }
+input#all:checked ~ #people div:nth-of-type(7) ol, #people div:nth-of-type(7) ol::after, #people div:nth-of-type(7) h2::after { background-color: #d50; }
+input#all:checked ~ #people div:nth-of-type(8) ol, #people div:nth-of-type(8) ol::after, #people div:nth-of-type(8) h2::after { background-color: #d05; }
+
+#people ol {
+  margin: 0;
+  padding: 0;
+  width: 15em;
+  height: 25em;
+  height: calc(25em + 24px);
+  overflow: hidden;
+  counter-reset: li;
+  position: relative;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.3));
+  font-family: 'Roboto Condensed', sans-serif;
+}
+input#all:checked ~ #people ol {
+    overflow-y: scroll;
+}
+
+#people ol::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+#people h2 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: bold;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: relative;
+    color: white;
+    padding-left: 0.6em;
+    text-align: center;
+}
+#people h2::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+#people div {
+    margin: 0.5em;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
+}
+#people {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    align-items: flex-start;
+    clear: both;
+}
+a {
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.7);
+}
+a:hover {
+    background: black;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+input[type=checkbox] + label {
+  background-color: rgba(220, 220, 220, 1.0);
+  color: rgba(128, 128, 128, 0.9);
+  height: 4em;
+  padding-left: 4em;
+  padding-right: 1em;
+  display: grid;
+  width: 10em;
+  float: left;
+  margin: 0.5em;
+  font-family: Oswald;
+  filter: grayscale();
+  background-size: 3em 3em;
+  background-repeat: no-repeat;
+  background-position: 0.5em 0.5em;
+  background-blend-mode: soft-light;
+  cursor: pointer;
+}
+input[type=checkbox] + label strong {
+    grid-row: 1;
+    grid-column: 1;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+input[type=checkbox] + label span {
+    grid-row: 2;
+    grid-column: 1;
+    font-size: 10px;
+    font-weight: normal;
+}
+input[type=checkbox]:checked + label {
+  background-color: rgba(200, 255, 200, 0.9);
+  color: black;
+  filter: none;
+  background-blend-mode: difference;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
+}
+
+@media (max-width: 550px) {
+    input[type="checkbox"] + label {
+        box-sizing: border-box;
+        width: 30%;
+        width: calc(50% - 1em);
+        padding: 0.5em;
+        background-size: 1.2em 1.2em;
+    }
+    input[type="checkbox"] + label strong {
+        padding-left: 2em;
+        font-size: 0.7em;
+    }
+    input[type="checkbox"] + label span {
+        font-size: 9px;
+    }
+    #people div, #people ol {
+        width: 100%;
+    }
+}
+
+header, footer {
+    text-align: center;
+    font-family: sans-serif;
+    max-width: 80ch;
+    margin: auto;
+    line-height: 1.4;
+}
+header h1, header h2 {
+    font-family: "Oswald", sans-serif;
+}
+header p {
+    text-align: justify;
+}
+
+header a, footer a {
+    color: #ddf;
+}
+header a:hover, footer a:hover {
+    background: white;
+    color: black;
+}
+
+footer {
+    border-top: 1px dotted white;
+    margin-top: 2em;
+    padding-right: 50px;
+    background: url(https://kryogenix.org/crsearch/trlogo.png) bottom right no-repeat;
+    background-size: 40px 40px;
+    background-blend-mode: soft-light;
+    color: rgba(255, 255, 255, 0.6);
+}
+footer p {
+    font-size: 0.8rem;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    margin-bottom: 0.1rem;
+}
+</style>
+</head>
+<body>
+    <header>
+        <h1>Critical Role transcripts common words analysis</h1>
+        <h2>by <a href="https://twitter.com/sil">Stuart Langridge</a>, December 2020</h2>
+        <p>A few people <a href="https://www.reddit.com/r/criticalrole/comments/khx9z8/no_spoilers_clavicle_count/">have wondered</a> 
+            which words people on Critical Role say most frequently. Normally
+            they're doing so to tease Matt about saying "maw" a lot, admittedly, but they
+            <em>have</em> wondered. This question is easily answered with the searchable
+            transcripts of CR (where you can see that Matt has said “clavicle”
+            <a href="https://kryogenix.org/crsearch/?q=clavicle&MATT=on">fifty times</a> as
+            of December 2020, and Sam has apparently said "Sam"
+            <a href="https://kryogenix.org/crsearch/?q=sam&SAM=on">106 times</a>).</p>
+        <p>I thought it might be interesting to work this out for two word phrases:
+            <em>eldritch blast</em> or <em>natural 20</em>, so
+            I did a little bit of analysis, and what you get is what’s below. (Single words
+            aren’t as interesting as you think, sadly.) I’ve done a
+            small amount of categorisation of the most popular phrases,
+            so you can turn on and off various categories of
+            words by tapping on the categories. Phrases for each person are listed in descending order of popularity; a phrase
+            has to have been said quite a few times before it shows up in the analysis; lots of words
+            like <em>to</em> or <em>and</em> or <em>’s</em> are ignored, which might affect things. This is up to date as of
+            December 2020; it doesn't get automatically updated when new episodes come out, because the
+            analysis takes a while to run. Have fun with it.</p>
+    </header>
+<main>

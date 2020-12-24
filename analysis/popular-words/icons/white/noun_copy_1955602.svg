@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   data-name="Layer 1"
+   viewBox="0 0 1000 1000"
+   x="0px"
+   y="0px"
+   version="1.1"
+   id="svg70"
+   sodipodi:docname="noun_copy_1955602.svg"
+   width="1000"
+   height="1000"
+   inkscape:version="1.0.1 (0767f8302a, 2020-10-17)">
+  <metadata
+     id="metadata76">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>icon-01</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs74" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1745"
+     inkscape:window-height="1138"
+     id="namedview72"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="0.39375"
+     inkscape:cx="177.9896"
+     inkscape:cy="338.88534"
+     inkscape:window-x="72"
+     inkscape:window-y="27"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg70" />
+  <title
+     id="title56">icon-01</title>
+  <g
+     id="g10880"
+     transform="translate(30.5,30)">
+    <path
+       fill="#ffffff"
+       d="m 652.09,495.15 m -15,0 a 15,15 0 1 0 30,0 15,15 0 1 0 -30,0 z"
+       id="path58" />
+    <path
+       fill="#ffffff"
+       d="M 543,831.37 A 28.63,28.63 0 0 1 514.37,860 H 79 V 424.63 A 28.63,28.63 0 0 1 107.61,396 H 264 V 317 H 108.61 A 108.63,108.63 0 0 0 0,425.63 V 940 H 514.37 A 108.63,108.63 0 0 0 623,831.37 V 675 h -80 z"
+       id="path60" />
+    <path
+       fill="#ffffff"
+       d="M 316,100 V 623 H 839 A 100,100 0 0 0 939,523 V 0 H 416 A 100,100 0 0 0 316,100 Z M 839,543 H 396 V 100 a 20,20 0 0 1 20,-20 h 443 v 443 a 20,20 0 0 1 -20,20 z"
+       id="path62" />
+    <path
+       fill="#ffffff"
+       d="m 708.5,510 h 102 A 15.5,15.5 0 0 0 826,494.5 V 267.1 a 5.25,5.25 0 0 0 -1.54,-3.75 C 811.46,250.63 796,259.6 796,272.19 v 202.64 a 5.17,5.17 0 0 1 -5.17,5.17 h -87.42 a 5.25,5.25 0 0 0 -3.75,1.54 C 686.95,494.49 695.92,510 708.5,510 Z"
+       id="path64" />
+  </g>
+  <text
+     x="-43.389999"
+     y="1070.3226"
+     fill="#ffffff"
+     font-size="5px"
+     font-weight="bold"
+     font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif"
+     id="text66">Created by Duncan Cleary</text>
+  <text
+     x="-43.389999"
+     y="1075.3226"
+     fill="#ffffff"
+     font-size="5px"
+     font-weight="bold"
+     font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif"
+     id="text68">from the Noun Project</text>
+</svg>
