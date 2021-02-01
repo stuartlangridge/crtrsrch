@@ -51,15 +51,15 @@ body {
 }
 #people li::after {
     counter-increment: li;
-    content: counter(li);
+    content: '#' counter(li);
     position: absolute;
     right: 10px;
     color: rgba(255, 255, 255, 0.15);
-    font-size: 2em;
+    font-size: 1.4em;
     font-weight: 300;
 }
 #people li:nth-child(n+99)::after {
-    font-size: 1.4em;
+    font-size: 1em;
 }
 
 #people li::before {
@@ -324,6 +324,8 @@ footer p {
   <label for="intro"><strong>intro</strong> <span>Things about the structure of the show, summaries of what happened last time, etc</span></label>
   <input type="checkbox" id="other" checked>
   <label for="other"><strong>other</strong> <span>Everything else!</span></label>
+  <input type="checkbox" id="double" checked>
+  <label for="double"><strong>double</strong> <span>So good they said it twice (unless it's 'okay okay', sorry)</span></label>
   <input type="checkbox" id="all">
   <label for="all"><strong>Everything</strong> <span>Show all the things, not just the top 10</span></label>
 <style>
@@ -399,6 +401,10 @@ input#other:checked ~ #people li.other {
   height: 2.5em; font-size: unset;   border-bottom: 1px solid rgba(255, 255, 255, 0.1);   transform: none; opacity: 1; }
 input#other + label { background-image: url(icons/white/); }
 #people li.other::before { background-image: url(icons/white/); }
+input#double:checked ~ #people li.double {
+  height: 2.5em; font-size: unset;   border-bottom: 1px solid rgba(255, 255, 255, 0.1);   transform: none; opacity: 1; }
+input#double + label { background-image: url(icons/white/noun_copy_1955602.svg); }
+#people li.double::before { background-image: url(icons/white/noun_copy_1955602.svg); }
 </style>
 <div id='people' class='all'>
 <div>

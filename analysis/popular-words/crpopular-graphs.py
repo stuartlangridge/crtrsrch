@@ -61,7 +61,8 @@ CATS = {
     "sponsors": ["loot crate", "dwarven forge", "puzzle quest"],
     "mattisms": ["brings us", "go ahead", "anything else", "turns around"],
     "intro": ["welcome back", "tonight episode", "next week", "last time"],
-    "other": []
+    "other": [],
+    "double": []
 }
 
 CATDESCS = {
@@ -99,7 +100,7 @@ CATDESCS = {
         "noun_introduction_2044552.svg"),
     "other": ("Everything else!", True,
         ""),
-    "double": ("So good they said it twice", True,
+    "double": ("So good they said it twice (unless it's 'okay okay', sorry)", True,
         "noun_copy_1955602.svg"),
 }
 EXCLUDE = ["ORION"]

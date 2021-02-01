@@ -13,7 +13,7 @@ nltk.download('stopwords')
 nltk.download('punkt')
 
 STOPS = stopwords.words() + ["amp", "gt", "lt"]
-FILLER = ["like", "yeah", "right", "ok", "okay", "oh"]
+FILLER = ["like", "yeah", "right", "ok", "oh"]
 
 saved = os.path.join(os.path.dirname(__file__), "crpopular.json")
 saved_tmp = saved + ".tmp"
