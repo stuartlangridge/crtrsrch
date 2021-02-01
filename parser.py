@@ -286,7 +286,10 @@ HARDCODED = {
                  'title': 'Dalen\'s Closet'},
  'AfEZF5G9HV4': {'campaign': '1',
                  'episode': '115.10',
-                 'title': 'The Search For Bob'}
+                 'title': 'The Search For Bob'},
+ 'hi5pEHs76TE': {'campaign': '1',
+                 'episode': '115.09',
+                 'title': 'The Search For Grog'}
 }
 
 IGNORED_NON_EPISODES = [

@@ -11,7 +11,10 @@ logging.basicConfig(level=LOGLEVEL)
 
 PLAYLISTS = [
     "PL1tiwbzkOjQxD0jjAE7PsWoaCrs0EkBH2",  # campaign 1
-    "PL7atuZxmT954bCkC062rKwXTvJtcqFB8i"  # campaign 2
+    "PL7atuZxmT954bCkC062rKwXTvJtcqFB8i",  # campaign 2
+    [  # extras
+        "hi5pEHs76TE"  # The Search For Grog
+    ]
 ]
 
 SKIP = [
@@ -108,9 +111,12 @@ def main():
     fetched = 0
     # fetch JSON files describing the playlists
     for pl in PLAYLISTS:
-        out = subprocess.check_output(
-            ["/home/aquarius/bin/youtube-dl", "--dump-single-json", "--flat-playlist", pl])
-        lst = json.loads(out)
+        if type(pl) is list:
+            lst = {"entries": [{"url": x} for x in pl]}
+        else:
+            out = subprocess.check_output(
+                ["/home/aquarius/bin/youtube-dl", "--dump-single-json", "--flat-playlist", pl])
+            lst = json.loads(out)
         for detail in lst.get("entries", {}):
             key = detail["url"]
             json_file = os.path.join("metadata", "json",
