@@ -289,7 +289,10 @@ HARDCODED = {
                  'title': 'The Search For Bob'},
  'hi5pEHs76TE': {'campaign': '1',
                  'episode': '115.09',
-                 'title': 'The Search For Grog'}
+                 'title': 'The Search For Grog'},
+ '51ykIVq9KcM': {'campaign': '2',
+                 'episode': '95.01',
+                 'title': 'Cinderbrush: A Monsterhearts Story'}
 }
 
 IGNORED_NON_EPISODES = [

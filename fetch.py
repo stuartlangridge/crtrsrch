@@ -13,7 +13,8 @@ PLAYLISTS = [
     "PL1tiwbzkOjQxD0jjAE7PsWoaCrs0EkBH2",  # campaign 1
     "PL7atuZxmT954bCkC062rKwXTvJtcqFB8i",  # campaign 2
     [  # extras
-        "hi5pEHs76TE"  # The Search For Grog
+        "hi5pEHs76TE",  # The Search For Grog
+        "51ykIVq9KcM"  # Cinderbrush: A Monsterhearts Story
     ]
 ]
 
