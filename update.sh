@@ -23,6 +23,8 @@ for f in $changes; do
 done
 echo Parsing downloaded scripts
 python3 parser.py
+echo Constructing sitemap
+python3 sitemap.py
 echo Constructing full zip file
 zip -q cr_full.zip -r html README.zip.md tojson.py
 echo Deploying to live
