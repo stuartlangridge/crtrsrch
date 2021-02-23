@@ -28,7 +28,9 @@ include("query.php");
 $qu = $_GET["q"];
 $encqu = urlencode($_SERVER['QUERY_STRING']);
 $cachepath = __dir__ . "/cache/" . $encqu . ".cache";
-if (file_exists($cachepath)) {
+// cache times out after some time so that if new shows have arrived with matches
+// for an already cached query, the problem will eventually right itself
+if (file_exists($cachepath) && (time()-filemtime($cachepath)) < 60 * 60 * 24 * 3) {
     echo file_get_contents($cachepath);
     echo "<span data-cached></span>";
 } else {
