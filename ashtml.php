@@ -150,8 +150,14 @@ if ($results['count'] > 100) {
     echo " for this search). Refine your search if needed.</small></p>";
 }
 
+if ($results['count'] == 0) {
+    echo "<p><small>No results found for that search.</small></p>";
+}
+
 $output = ob_get_clean();
-file_put_contents($cachepath, $output);
+if ($results['count'] > 0) {
+    file_put_contents($cachepath, $output);
+}
 echo $output;
 }
 ?>

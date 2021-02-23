@@ -1,6 +1,7 @@
 <?php
 
 function query($q) {
+    $q = str_replace('’', " ", $q); // handle smart quotes
     $db = new SQLite3('cr.db');
     $sql = <<<SQL
     select e.campaign, e.episode, e.title, e.link, l.html,
