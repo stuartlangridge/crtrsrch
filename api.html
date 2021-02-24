@@ -62,6 +62,16 @@ having to look up the details.</p>
 
 <p>Warning: please do not, do not repeatedly download this file and overwhelm the bandwidth of this site, or I'll have to stop providing it. See the README for details on how to update your local copy with newer files as more episodes are released.</p>
 
+<h3 id="quotes">Looking up quotations</h3>
+
+<p>The <a href="https://criticalrole.fandom.com/">wiki</a> has lots of quotations from the episode, and it would be useful if they were all annotated with exactly where they were said. So here's a small tool which might help with that. Drag this link &rarr; [<a href="#" id="quotes_bm">Add quote buttons</a>] &larr; to your bookmarks bar, or right-click it and say "Bookmark this link". Then, while you're looking at a page about an episode on the CR Wiki, click the button in your bookmarks bar, or open the bookmark it made. This should add a "search" button to the end of each quotation in the <strong>Quotations</strong> section of the episode page. Clicking one of these search buttons will attempt to look up that quotation in the transcripts for this episode and present you with a link to it in the episode VOD on YouTube, which will hopefully help to annotate episode quotations with links. Note that this does not actually edit the wiki! You will still need to copy the text into the edit screen; this simply speeds up the process of searching for the quotation text. Note also that it can't be perfectly reliable; some quotations will work and some won't.</p>
+<p>(Here's a little video showing how this works: <a href="https://www.youtube.com/watch?v=A7-3RLD9Gr4">watch on youtube</a>.)
+<script>
+const qurl = new URL(location.href);
+qurl.pathname = qurl.pathname.replace('api.html', 'quote.php');
+const bm = `(function(){const ep = document.querySelectorAll("aside abbr")[0].textContent;let qul=document.getElementById('Quotations').closest("h2"); while (qul && qul.nodeName != "UL") qul = qul.nextElementSibling; Array.from(qul.querySelectorAll("li")).forEach(l => {if (l.querySelector("button + code")) l.querySelector("button + code").remove(); if (l.querySelector("button")) l.querySelector("button").remove(); const b = document.createElement("button"); b.append("🔎"); l.append(b); let tc = Array.from(l.childNodes).map(c => c.nodeType == 3 ? c.textContent : " ").join(" ").replace(/^\\s*:/, '').trim().split(/[!\\?\\.]/)[0]; b.onclick=() => { if (b.nextElementSibling) b.nextElementSibling.remove(); let d = document.createElement("code"); d.style.display="block"; d.append("loading..."); b.parentNode.append(d); let url=new URL("` + qurl + `");url.hash="";url.search=new URLSearchParams({ep: ep, q: tc}).toString(); fetch(url).then(r => r.json()).then(r => {d.innerHTML=""; r.forEach(rr => {d.append(rr.epref); d.innerHTML += ' <a href="' + rr.link + '">(check &rarr;)</a><br>';})})}})})();`;
+document.getElementById("quotes_bm").href = "javascript:" + bm;
+</script>
 
 <footer>
     <p>

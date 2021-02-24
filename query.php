@@ -1,7 +1,8 @@
 <?php
 
-function query($q) {
+function query($q, $campaign=null, $episode=null) {
     $q = str_replace('’', " ", $q); // handle smart quotes
+    $q = str_replace('“', '"', $q); // handle smart quotes
     $db = new SQLite3('cr.db');
     $sql = <<<SQL
     select e.campaign, e.episode, e.title, e.link, l.html,
@@ -64,6 +65,9 @@ SQL;
                 break;
         }
     }
+    if (!is_null($campaign) && !is_null($episode)) {
+        $sql .= " and e.campaign = :c and e.episode = :e ";
+    }
     $sql .= " group by l.id order by e.sortkey desc";
     $statement = $db->prepare($sql);
     $statement->bindValue(':q', $q);
@@ -71,6 +75,10 @@ SQL;
         foreach ($splaces as $ph => $name) {
             $statement->bindValue($ph, $name);
         }
+    }
+    if (!is_null($campaign) && !is_null($episode)) {
+        $statement->bindValue(':c', $campaign);
+        $statement->bindValue(':e', $episode);
     }
     @$results = $statement->execute();
     $ret = ['count' => 0, 'results' => []];
