@@ -14,7 +14,7 @@ foreach ($results["results"] as $res) {
     $nres[] = Array(
         "link" => $res["episode_yt"] . '&t=' . $res["time_h"] . "h" . $res["time_m"] . "m" . $res["time_s"] . "s",
         "title" => $res["episode_title"],
-        "epref" => "{{ep ref|ep=" . $epd[1] . "x" . $epd[2] . "|" . $res["time_h"] . ":" . str_pad($res["time_m"], 2, "0") . ":" . str_pad($res["time_s"], 2, "0") . "}}",
+        "epref" => "{{ep ref|ep=" . $epd[1] . "x" . $epd[2] . "|" . $res["time_h"] . ":" . str_pad($res["time_m"], 2, "0", STR_PAD_LEFT) . ":" . str_pad($res["time_s"], 2, "0", STR_PAD_LEFT) . "}}",
         "line" => $res
     );
 }
